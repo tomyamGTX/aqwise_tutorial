@@ -1,6 +1,8 @@
 import 'package:aqwise_stripe_payment/payment/payment.screen.dart';
 import 'package:flutter/material.dart';
 
+import 'email/email.screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -104,6 +106,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           builder: (context) => const PaymentScreen()));
                 },
                 child: const Text('Stripe Payment')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => EmailScreen()));
+                },
+                child: const Text('Email Sender')),
             const Text(
               'You have pushed the button this many times:',
             ),
