@@ -16,7 +16,9 @@ class _EmailScreenState extends State<EmailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Send Email'),
+      ),
       body: Form(
           key: _formKey,
           child: Padding(

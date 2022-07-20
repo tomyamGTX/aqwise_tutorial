@@ -1,4 +1,5 @@
 import 'package:aqwise_stripe_payment/payment/payment.screen.dart';
+import 'package:aqwise_stripe_payment/url_handler/url.screen.dart';
 import 'package:flutter/material.dart';
 
 import 'email/email.screen.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'AQ Wise Payment Method'),
+      home: const MyHomePage(title: 'AQ Wise Tutorial'),
     );
   }
 }
@@ -108,10 +109,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: const Text('Stripe Payment')),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => EmailScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EmailScreen()));
                 },
                 child: const Text('Email Sender')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const URLScreen()));
+                },
+                child: const Text('URL Handler')),
             const Text(
               'You have pushed the button this many times:',
             ),

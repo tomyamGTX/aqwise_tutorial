@@ -109,7 +109,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Stripe Payment'),
+      ),
       resizeToAvoidBottomInset: true,
       body: Container(
         decoration: const BoxDecoration(
