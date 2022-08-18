@@ -1,5 +1,6 @@
 import 'package:aqwise_stripe_payment/favourite_list/favourite.provider.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.screen.dart';
+import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
 import 'package:aqwise_stripe_payment/payment/payment.screen.dart';
 import 'package:aqwise_stripe_payment/url_handler/url.screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,6 +32,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<FavouriteProvider>(
             create: (context) => FavouriteProvider()),
+        ChangeNotifierProvider<PaymentProvider>(
+            create: (context) => PaymentProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -59,69 +62,82 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Wrap(
-          alignment: WrapAlignment.spaceAround,
-          spacing: 8,
-          children: <Widget>[
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PaymentScreen()));
-                },
-                child: const Text('Stripe Payment')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EmailScreen()));
-                },
-                child: const Text('Email Sender')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const URLScreen()));
-                },
-                child: const Text('URL Handler')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const FavScreen()));
-                },
-                child: const Text('Favourite List')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoopScreen()));
-                },
-                child: const Text('Loop test')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const Login()));
-                },
-                child: const Text('Login')),
+    return Consumer<PaymentProvider>(builder: (context, pay, _) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  pay.role,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+            )
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        body: Center(
+          child: Wrap(
+            alignment: WrapAlignment.spaceAround,
+            spacing: 8,
+            children: <Widget>[
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PaymentScreen()));
+                  },
+                  child: const Text('Stripe Payment')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EmailScreen()));
+                  },
+                  child: const Text('Email Sender')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const URLScreen()));
+                  },
+                  child: const Text('URL Handler')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const FavScreen()));
+                  },
+                  child: const Text('Favourite List')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoopScreen()));
+                  },
+                  child: const Text('Loop test')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Login()));
+                  },
+                  child: const Text('Login')),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
+      );
+    });
   }
 }
