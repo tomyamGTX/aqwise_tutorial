@@ -1,3 +1,4 @@
+import 'package:aqwise_stripe_payment/edit.module/aya.number.provider.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.provider.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.screen.dart';
 import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
@@ -9,6 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
 import 'auth/login.dart';
+import 'edit.module/edit.module.dart';
 import 'email/email.js.dart';
 import 'firebase_options.dart';
 import 'loop/loop.screen.dart';
@@ -34,6 +36,7 @@ class MyApp extends StatelessWidget {
             create: (context) => FavouriteProvider()),
         ChangeNotifierProvider<PaymentProvider>(
             create: (context) => PaymentProvider()),
+        ChangeNotifierProvider<AyaProvider>(create: (context) => AyaProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
@@ -129,6 +132,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => const Login()));
                   },
                   child: const Text('Login')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EditModule()));
+                  },
+                  child: const Text('Edit Module')),
             ],
           ),
         ),

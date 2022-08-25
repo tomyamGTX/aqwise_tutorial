@@ -40,6 +40,7 @@ dependencies:
   package_info_plus:
   firebase_core:
   firebase_auth:
+  tree_view: ^0.0.6
 
 
   # The following adds the Cupertino Icons font to your application.
