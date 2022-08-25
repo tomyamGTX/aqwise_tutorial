@@ -161,14 +161,21 @@ class _ParentWidgetState extends State<ParentWidget> {
                                     .wordDetailList[i]
                                     .name!,
                             type: '',
-                            childType:
-                                Provider.of<AyaProvider>(context, listen: false)
-                                    .wordDetailList[i]
-                                    .childType,
+                            childType: 'None',
+
+                            ///based on id in wordCategory
                             categoryId: 10,
-                            hasChild:
-                               false,
+
+                            ///based on id in wordRelationShip
+                            id: 10,
+
+                            ///if childType equals to None return false
+                            hasChild: false,
+
+                            ///if ancestry has more than 2 (/) return false EG:1/2/3/4 will return false
                             isparent: false,
+
+                            ///for new child, parent value get from combining wordDetail.parent and wordDetail.id from the parent
                             parent:
                                 '${widget.data.parent!}/${widget.data.id}'));
                         _value[i] = value!;
