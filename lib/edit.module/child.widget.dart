@@ -37,8 +37,7 @@ class _ChildWidgetState extends State<ChildWidget> {
                   var type = widget.data.childType;
                   return StatefulBuilder(builder: (context, setState) {
                     return AlertDialog(
-                      title: Text(
-                          'Example checkbox for ${widget.data.childType!}'),
+                      title: Text('Example  for ${widget.data.childType!}'),
                       content: SizedBox(
                           height: 200,
                           width: 100,
