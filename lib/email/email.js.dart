@@ -101,7 +101,6 @@ class _EmailScreenState extends State<EmailScreen> {
       'tags': build.tags,
       'type': build.type,
       'isPhysicalDevice': build.isPhysicalDevice,
-      'androidId': build.androidId,
       'systemFeatures': build.systemFeatures,
     };
   }
@@ -330,6 +329,7 @@ class _EmailScreenState extends State<EmailScreen> {
                             messageController.value.text,
                             messageDevice,
                           );
+                          if (!mounted) return;
                           ScaffoldMessenger.of(context).showSnackBar(
                               response == 200
                                   ? const SnackBar(
