@@ -15,10 +15,10 @@ class EmailScreen extends StatefulWidget {
   const EmailScreen({Key? key}) : super(key: key);
 
   @override
-  _EmailScreenState createState() => _EmailScreenState();
+  EmailScreenState createState() => EmailScreenState();
 }
 
-class _EmailScreenState extends State<EmailScreen> {
+class EmailScreenState extends State<EmailScreen> {
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
   Map<String, dynamic> _deviceData = <String, dynamic>{};
   String? brand;
@@ -198,7 +198,9 @@ class _EmailScreenState extends State<EmailScreen> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            print('yes selected');
+                            if (kDebugMode) {
+                              print('yes selected');
+                            }
                             exit(0);
                           },
                           style: ElevatedButton.styleFrom(
@@ -210,7 +212,9 @@ class _EmailScreenState extends State<EmailScreen> {
                       Expanded(
                           child: ElevatedButton(
                         onPressed: () {
-                          print('no selected');
+                          if (kDebugMode) {
+                            print('no selected');
+                          }
                           Navigator.of(context).pop();
                         },
                         style: ElevatedButton.styleFrom(
