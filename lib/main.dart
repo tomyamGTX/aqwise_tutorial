@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
+import 'api/api.screen.dart';
 import 'auth/login.dart';
 import 'edit.module/edit.module.dart';
 import 'email/email.js.dart';
@@ -140,6 +141,14 @@ class _MyHomePageState extends State<MyHomePage> {
                             builder: (context) => const EditModule()));
                   },
                   child: const Text('Edit Module')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const APIScreen()));
+                  },
+                  child: const Text('Get data from API')),
             ],
           ),
         ),
