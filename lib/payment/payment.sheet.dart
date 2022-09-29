@@ -31,11 +31,22 @@ class _PaymentSheetState extends State<PaymentSheet> {
       ));
       await Stripe.instance.presentPaymentSheet();
       var updatedIntent = await StripeService.getIntent(paymentIntent['id']);
+
+      //receipt url
       print(updatedIntent['charges']['data'].last['receipt_url']);
+      //status payment
+      print(updatedIntent['status']);
+
       if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Payment Success')));
-      //update user data on db here
+      if (updatedIntent['status'] == 'succeeded') {
+        //update user data on db here
+        //go to receipt/etc
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Payment Success')));
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Payment Fail')));
+      }
     } catch (error) {
       if (error is StripeException) {
         ScaffoldMessenger.of(context)
