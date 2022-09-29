@@ -363,9 +363,11 @@ class EmailScreenState extends State<EmailScreen> {
 
   Future sendEmail(String name, String email, String subject, String message,
       String info) async {
-    const serviceId = 'service_6lja4yp';
-    const templateId = 'template_pmqipei';
+    const serviceId = 'service_5pz0bbj';
+    const templateId = 'template_mpv8g1o';
+    //public key email.js
     const userId = '7oBv-Wgkr224QQXQd';
+
     final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
     final response = await http.post(url,
         headers: {
