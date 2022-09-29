@@ -8,7 +8,7 @@ import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../services/stripe.service.dart';
+import 'stripe.service.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({Key? key}) : super(key: key);
@@ -53,8 +53,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
       setState(() {});
       var paymentMethodID = paymentMethod['id'];
       var id = Provider.of<PaymentProvider>(context, listen: false).pid;
+      var cid = Provider.of<PaymentProvider>(context, listen: false).cid;
       if (Provider.of<PaymentProvider>(context, listen: false).pid == null) {
-        paymentIntent = await StripeService.createPaymentIntent('5000', 'MYR');
+        paymentIntent =
+            await StripeService.createPaymentIntent('5000', 'MYR', cid, email);
 
         setState(() {});
         id = paymentIntent!['id'];

@@ -3,9 +3,12 @@ import 'package:aqwise_stripe_payment/favourite_list/favourite.provider.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.screen.dart';
 import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
 import 'package:aqwise_stripe_payment/payment/payment.screen.dart';
+import 'package:aqwise_stripe_payment/payment/payment.sheet.dart';
 import 'package:aqwise_stripe_payment/url_handler/url.screen.dart';
+import 'package:aqwise_stripe_payment/widgets/constant.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +20,9 @@ import 'firebase_options.dart';
 import 'loop/loop.screen.dart';
 
 Future<void> main() async {
-  await WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  Stripe.publishableKey = publishkey;
+  await Stripe.instance.applySettings();
   await GetStorage.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -94,7 +99,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(
                             builder: (context) => const PaymentScreen()));
                   },
-                  child: const Text('Stripe Payment')),
+                  child: const Text('Stripe Custom Payment')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PaymentSheet()));
+                  },
+                  child: const Text('Stripe Payment Sheet')),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(

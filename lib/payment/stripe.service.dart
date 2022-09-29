@@ -9,9 +9,11 @@ class StripeService {
   static String paymentIntentURL = '$apiURL/payment_intents';
   static String paymentMethodURL = '$apiURL/payment_methods';
   static String customer = '$apiURL/customers';
+  static String ephemeralKey = '$apiURL/ephemeral_keys';
   static String secret = StripeSecretKey; //your secret from stripe dashboard
   static Map<String, String> headers = {
     'Authorization': 'Bearer $secret',
+    'Stripe-Version': '2022-08-01',
     'Content-Type': 'application/x-www-form-urlencoded'
   };
 
@@ -43,15 +45,17 @@ class StripeService {
   }
 
   static Future<Map<String, dynamic>?> createPaymentIntent(
-      String amount, String currency) async {
+      String amount, String currency, String custId, String email) async {
     try {
       Map<String, dynamic> body = {
         'amount': amount,
+        'customer': custId,
         // amount charged will be specified when the method is called
         'description': 'buy premium product',
         'currency': currency,
         // the currency
         'payment_method_types[]': 'card',
+        'receipt_email': email
       };
 
       var response = await http.post(Uri.parse(paymentIntentURL), //api url
@@ -77,6 +81,21 @@ class StripeService {
       };
 
       var response = await http.post(Uri.parse(customer), //api url
+          body: body, //request body
+          headers: headers //headers of the request specified in the base class
+          );
+      return jsonDecode(response.body); //decode the response to json
+    } catch (error) {
+      print('Error occured : ${error.toString()}');
+    }
+    return null;
+  }
+
+  static Future<Map<String, dynamic>?> createEphemeralKey(String custId) async {
+    try {
+      Map<String, dynamic> body = {'customer': custId};
+
+      var response = await http.post(Uri.parse(ephemeralKey), //api url
           body: body, //request body
           headers: headers //headers of the request specified in the base class
           );
@@ -118,7 +137,7 @@ class StripeService {
       Map<String, dynamic> body = {"payment_method": '$paymentMethodId'};
 
       var response = await http.post(
-          Uri.parse(paymentIntentURL + '/' + paymentId + '/confirm'), //api url
+          Uri.parse('$paymentIntentURL/$paymentId/confirm'), //api url
           body: body, //request body
           headers: headers //headers of the request specified in the base class
           );
@@ -136,6 +155,25 @@ class StripeService {
       var response = await http.post(
           Uri.parse(paymentMethodURL + '/' + paymentMethod + '/attach'),
           //api url
+          body: body, //request body
+          headers: headers //headers of the request specified in the base class
+          );
+      return jsonDecode(response.body); //decode the response to json
+    } catch (error) {
+      print('Error occured : ${error.toString()}');
+    }
+    return null;
+  }
+
+  static Future<Map<String, dynamic>?> confirmIntent(
+      String email, String intentID) async {
+    try {
+      Map<String, dynamic> body = {
+        'receipt_email': email,
+      };
+
+      var response = await http.post(
+          Uri.parse('$paymentIntentURL/$intentID'), //api url
           body: body, //request body
           headers: headers //headers of the request specified in the base class
           );
