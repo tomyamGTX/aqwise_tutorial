@@ -1,0 +1,37 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Flutter
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: CI/CD basic flutter project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Flutter Latest
+        # You may pin to the exact commit or the version.
+        # uses: geowatson/flutter-latest@f71e57a721f066cc8d8d197f77991d5ecbaaec9c
+        uses: geowatson/flutter-latest@1.0.1
+        
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1
+      - run: flutter pub get
+      
+      - name: Flutter Pubspec Updater
+        # You may pin to the exact commit or the version.
+        # uses: kuanyi-ng/update-flutter-packages@2f1fe35fdaee90f7accd219478cbeec60fb3d7a3
+        uses: kuanyi-ng/update-flutter-packages@v0.1.2
+        with:
+          # relative path to pubspec.yaml file from root directory
+          pathToPubspecFile: ./pubspec.yaml
