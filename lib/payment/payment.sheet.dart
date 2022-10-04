@@ -1,7 +1,9 @@
+import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
 import 'package:aqwise_stripe_payment/payment/stripe.service.dart';
 import 'package:aqwise_stripe_payment/widgets/exmple.scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:provider/provider.dart';
 
 class PaymentSheet extends StatefulWidget {
   const PaymentSheet({Key? key}) : super(key: key);
@@ -17,6 +19,8 @@ class _PaymentSheetState extends State<PaymentSheet> {
       dynamic customer = await StripeService.createCustomer('Hakimi',
           '013456789', 'hakimimdnoor90@gmail.com', 'buy test premium');
       String custId = customer['id'];
+      if (!mounted) return;
+      Provider.of<PaymentProvider>(context, listen: false).setCid(custId);
       //change price and get user email
       dynamic paymentIntent = await StripeService.createPaymentIntent(
           '5000', 'MYR', custId, 'hakimimdnoor90@gmail.com');
@@ -30,6 +34,9 @@ class _PaymentSheetState extends State<PaymentSheet> {
         customerEphemeralKeySecret: ephmeralkey['secret'],
       ));
       await Stripe.instance.presentPaymentSheet();
+      if (!mounted) return;
+      Provider.of<PaymentProvider>(context, listen: false)
+          .setPid(paymentIntent['id']);
       var updatedIntent = await StripeService.getIntent(paymentIntent['id']);
 
       //receipt url
