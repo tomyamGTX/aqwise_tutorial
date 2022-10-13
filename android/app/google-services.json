@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "525737552936",
+    "project_id": "tutorial-flutter-620bb",
+    "storage_bucket": "tutorial-flutter-620bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525737552936:android:eb7f518d1196bf5d5ed91d",
+        "android_client_info": {
+          "package_name": "com.kimi.aqwise_stripe_payment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525737552936-g6lps9garab1t3gg31m9d6rikh7f1fkq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4hdvSo5scr_A5Na-yO0PEfLZUCH74Qhc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525737552936-g6lps9garab1t3gg31m9d6rikh7f1fkq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

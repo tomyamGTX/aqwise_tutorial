@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
+Color kPrimaryColor = const Color(0xffF7ECDE);
 String publishkey =
     'pk_test_51KUoMmH8qbOVfW8TpDMbk4SQbcncSFc9y8sEOE2iHtIvm7nKd0MdQrs8SZp49jY5ZiDKI2qYLS276RcvmKfIe55Z00yIGfZX2g';
 String secretKey =

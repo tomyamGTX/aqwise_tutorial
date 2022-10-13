@@ -1,9 +1,11 @@
 import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
 import 'package:aqwise_stripe_payment/payment/stripe.service.dart';
-import 'package:aqwise_stripe_payment/widgets/exmple.scaffold.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
+
+import '../widgets/constant.dart';
 
 class PaymentSheet extends StatefulWidget {
   const PaymentSheet({Key? key}) : super(key: key);
@@ -40,9 +42,13 @@ class _PaymentSheetState extends State<PaymentSheet> {
       var updatedIntent = await StripeService.getIntent(paymentIntent['id']);
 
       //receipt url
-      print(updatedIntent['charges']['data'].last['receipt_url']);
+      if (kDebugMode) {
+        print(updatedIntent['charges']['data'].last['receipt_url']);
+      }
       //status payment
-      print(updatedIntent['status']);
+      if (kDebugMode) {
+        print(updatedIntent['status']);
+      }
 
       if (!mounted) return;
       if (updatedIntent['status'] == 'succeeded') {
@@ -67,11 +73,227 @@ class _PaymentSheetState extends State<PaymentSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return ExampleScaffold(
-      padding: const EdgeInsets.all(16),
-      children: [
-        ElevatedButton(onPressed: initPayment, child: const Text('Pay RM 50'))
-      ],
-    );
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return Scaffold(
+        backgroundColor: kPrimaryColor,
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            'Join the Premium',
+            style: TextStyle(
+              fontFamily: "MontserratBold",
+              fontSize: 24,
+              color: Colors.black,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          backgroundColor: Colors.white,
+          iconTheme: const IconThemeData(color: Colors.black),
+        ),
+        body: Center(
+            child: Container(
+          width: screenWidth * 1,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(10),
+                child: Icon(
+                  Icons.diamond_outlined,
+                  size: 70,
+                  color: Color(0xFFFAD399),
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Get Premium!',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700),
+              ),
+              Container(
+                width: screenWidth * 1,
+                height: screenHeight * 0.15,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
+                      child: Icon(
+                        Icons.person,
+                        size: 30,
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                          child: Text(
+                            'Lifetime Premium Membership',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontFamily: 'PoppinsRegular',
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
+                          child: Text(
+                            'Pay once and get lifetime\npremium access!',
+                            textAlign: TextAlign.justify,
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                              fontFamily: 'PoppinsRegular',
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: screenWidth * 1,
+                height: screenHeight * 0.15,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
+                      child: Icon(
+                        Icons.subscriptions_rounded,
+                        size: 30,
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                          child: Text(
+                            'Premium Contents',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontFamily: 'PoppinsRegular',
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                          child: Text(
+                            'Get access over 50 premium\neducational contents!',
+                            textAlign: TextAlign.justify,
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                              fontFamily: 'PoppinsRegular',
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                width: screenWidth * 1,
+                height: screenHeight * 0.15,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
+                      child: Icon(
+                        Icons.support_agent_rounded,
+                        size: 30,
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                          child: Text(
+                            'Exclusive Support',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              fontFamily: 'PoppinsRegular',
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                          child: Text(
+                            'Exclusive support from our team\nfor premium user!',
+                            textAlign: TextAlign.justify,
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 14,
+                              fontFamily: 'PoppinsRegular',
+                            ),
+                          ),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.all(20),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    backgroundColor: Color(0xff2196f3),
+                  ),
+                  onPressed: () => initPayment(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.diamond_outlined,
+                        color: Colors.white,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: Text(
+                          'Buy Premium',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'PoppinsRegular'),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )));
   }
 }

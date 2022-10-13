@@ -46,9 +46,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(useMaterial3: true, primaryColor: kPrimaryColor),
         home: const MyHomePage(title: 'AQ Wise Tutorial'),
       ),
     );
@@ -73,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Consumer<PaymentProvider>(builder: (context, pay, _) {
       return Scaffold(
+        backgroundColor: kPrimaryColor,
         appBar: AppBar(
           title: Text(widget.title),
           actions: [
