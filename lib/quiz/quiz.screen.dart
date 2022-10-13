@@ -12,14 +12,14 @@ class QuizScreen extends StatefulWidget {
 }
 
 class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
-  get wrongAnswer => () {
+  get wrongAnswer => () async {
         if (pool != null) {
-          pool!.start();
+          await pool!.start();
         }
         setState(() {
           _behaviourIndex = 2;
         });
-
+        if (!mounted) return;
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Wrong answer')));
         Future.delayed(const Duration(seconds: 3), () {
@@ -29,12 +29,12 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
         });
       };
 
-  get correctAnswer => () {
-        FlameAudio.play('correct.mp3');
+  get correctAnswer => () async {
+        await FlameAudio.play('correct.mp3');
         setState(() {
           _behaviourIndex = 1;
         });
-
+        if (!mounted) return;
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Correct answer')));
         Future.delayed(const Duration(seconds: 3), () {
@@ -50,12 +50,20 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
     ..style = PaintingStyle.stroke
     ..strokeWidth = 1.0;
   AudioPool? pool;
+
   @override
   void initState() {
     // TODO: implement initState
 
     loadMusic();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    FlameAudio.bgm.stop();
+    super.dispose();
   }
 
   @override
@@ -123,7 +131,7 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
   }
 
   Future<void> loadMusic() async {
-    FlameAudio.bgm.play('music/boss-fight/level-382.mp3');
+    await FlameAudio.bgm.play('music_bg.mp3');
     pool = await FlameAudio.createPool(
       'wrong.mp3',
       minPlayers: 3,
