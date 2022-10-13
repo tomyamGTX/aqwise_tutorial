@@ -81,7 +81,7 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
       spawnMaxSpeed: 70.0,
       spawnMinRadius: 7.0,
       spawnMaxRadius: 15.0,
-      particleCount: 78,
+      particleCount: 100,
     );
     Behaviour buildBehaviour() {
       switch (_behaviourIndex) {
@@ -107,27 +107,31 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
     }
 
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: AnimatedBackground(
-        behaviour: buildBehaviour(),
-        vsync: this,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-                'Question 1: What is programming language for Flutter??'),
-            ElevatedButton(
-                onPressed: correctAnswer, child: const Text('A) Dart')),
-            ElevatedButton(onPressed: wrongAnswer, child: const Text('B) PHP')),
-            ElevatedButton(
-                onPressed: wrongAnswer, child: const Text('C) Java')),
-            ElevatedButton(
-                onPressed: wrongAnswer, child: const Text('D) Phyton')),
-          ],
+        appBar: AppBar(
+          title: Text('Quiz Example'),
         ),
-      ),
-    ));
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: AnimatedBackground(
+            behaviour: buildBehaviour(),
+            vsync: this,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                    'Question 1: What is programming language for Flutter??'),
+                ElevatedButton(
+                    onPressed: correctAnswer, child: const Text('A) Dart')),
+                ElevatedButton(
+                    onPressed: wrongAnswer, child: const Text('B) PHP')),
+                ElevatedButton(
+                    onPressed: wrongAnswer, child: const Text('C) Java')),
+                ElevatedButton(
+                    onPressed: wrongAnswer, child: const Text('D) Phyton')),
+              ],
+            ),
+          ),
+        ));
   }
 
   Future<void> loadMusic() async {
