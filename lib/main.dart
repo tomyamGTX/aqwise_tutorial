@@ -4,6 +4,7 @@ import 'package:aqwise_stripe_payment/favourite_list/favourite.screen.dart';
 import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
 import 'package:aqwise_stripe_payment/payment/payment.screen.dart';
 import 'package:aqwise_stripe_payment/payment/payment.sheet.dart';
+import 'package:aqwise_stripe_payment/quiz/quiz.screen.dart';
 import 'package:aqwise_stripe_payment/url_handler/url.screen.dart';
 import 'package:aqwise_stripe_payment/widgets/constant.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -46,7 +47,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(useMaterial3: true, primaryColor: kPrimaryColor),
+        theme: ThemeData(
+            useMaterial3: true,
+            primaryColor: kPrimaryColor,
+            canvasColor: kSecondaryColor),
         home: const MyHomePage(title: 'AQ Wise Tutorial'),
       ),
     );
@@ -73,7 +77,10 @@ class _MyHomePageState extends State<MyHomePage> {
       return Scaffold(
         backgroundColor: kPrimaryColor,
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(
+            widget.title,
+            style: buttonStyle,
+          ),
           actions: [
             Center(
               child: Padding(
@@ -98,7 +105,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(
                             builder: (context) => const PaymentScreen()));
                   },
-                  child: const Text('Stripe Custom Payment')),
+                  child: Text(
+                    'Stripe Custom Payment',
+                    style: buttonStyle,
+                  )),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -106,7 +116,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(
                             builder: (context) => const PaymentSheet()));
                   },
-                  child: const Text('Stripe Payment Sheet')),
+                  child: Text(
+                    'Stripe Payment Sheet',
+                    style: buttonStyle,
+                  )),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -114,7 +127,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(
                             builder: (context) => const EmailScreen()));
                   },
-                  child: const Text('Email Sender')),
+                  child: Text(
+                    'Email Sender',
+                    style: buttonStyle,
+                  )),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -122,7 +138,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(
                             builder: (context) => const URLScreen()));
                   },
-                  child: const Text('URL Handler')),
+                  child: Text(
+                    'URL Handler',
+                    style: buttonStyle,
+                  )),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -130,7 +149,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(
                             builder: (context) => const FavScreen()));
                   },
-                  child: const Text('Favourite List')),
+                  child: Text(
+                    'Favourite List',
+                    style: buttonStyle,
+                  )),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -138,13 +160,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(
                             builder: (context) => const LoopScreen()));
                   },
-                  child: const Text('Loop test')),
+                  child: Text(
+                    'Loop test',
+                    style: buttonStyle,
+                  )),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => const Login()));
                   },
-                  child: const Text('Login')),
+                  child: Text(
+                    'Login',
+                    style: buttonStyle,
+                  )),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -152,7 +180,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(
                             builder: (context) => const EditModule()));
                   },
-                  child: const Text('Edit Module')),
+                  child: Text(
+                    'Edit Module',
+                    style: buttonStyle,
+                  )),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -160,7 +191,21 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(
                             builder: (context) => const APIScreen()));
                   },
-                  child: const Text('Get data from API')),
+                  child: Text(
+                    'Get data from API',
+                    style: buttonStyle,
+                  )),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const QuizScreen()));
+                  },
+                  child: Text(
+                    'Quiz Sound',
+                    style: buttonStyle,
+                  )),
             ],
           ),
         ),

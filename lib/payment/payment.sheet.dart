@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/constant.dart';
-
 class PaymentSheet extends StatefulWidget {
   const PaymentSheet({Key? key}) : super(key: key);
 
@@ -76,7 +74,6 @@ class _PaymentSheetState extends State<PaymentSheet> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: kPrimaryColor,
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
@@ -273,13 +270,13 @@ class _PaymentSheetState extends State<PaymentSheet> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.diamond_outlined,
                         color: Colors.white,
                       ),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                         child: Text(
                           'Buy Premium',
                           style: TextStyle(
