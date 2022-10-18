@@ -8,6 +8,7 @@ import 'package:aqwise_stripe_payment/quiz/quiz.screen.dart';
 import 'package:aqwise_stripe_payment/url_handler/url.screen.dart';
 import 'package:aqwise_stripe_payment/widgets/constant.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get_storage/get_storage.dart';
@@ -22,8 +23,10 @@ import 'loop/loop.screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Stripe.publishableKey = publishkey;
-  await Stripe.instance.applySettings();
+  if (!kIsWeb) {
+    Stripe.publishableKey = publishkey;
+    await Stripe.instance.applySettings();
+  }
   await GetStorage.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
