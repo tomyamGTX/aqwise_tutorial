@@ -115,20 +115,34 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
           child: AnimatedBackground(
             behaviour: buildBehaviour(),
             vsync: this,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                    'Question 1: What is programming language for Flutter??'),
-                ElevatedButton(
-                    onPressed: correctAnswer, child: const Text('A) Dart')),
-                ElevatedButton(
-                    onPressed: wrongAnswer, child: const Text('B) PHP')),
-                ElevatedButton(
-                    onPressed: wrongAnswer, child: const Text('C) Java')),
-                ElevatedButton(
-                    onPressed: wrongAnswer, child: const Text('D) Phyton')),
-              ],
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                      'Question 1: What is programming language for Flutter??'),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                        onPressed: correctAnswer, child: const Text('A) Dart')),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                        onPressed: wrongAnswer, child: const Text('B) PHP')),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                        onPressed: wrongAnswer, child: const Text('C) Java')),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                        onPressed: wrongAnswer, child: const Text('D) Phyton')),
+                  ),
+                ],
+              ),
             ),
           ),
         ));
