@@ -98,8 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: Center(
           child: Wrap(
-            alignment: WrapAlignment.spaceAround,
             spacing: 8,
+            runSpacing: 8,
             children: <Widget>[
               ElevatedButton(
                   onPressed: () {

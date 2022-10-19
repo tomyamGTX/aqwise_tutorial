@@ -17,24 +17,15 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -52,11 +43,41 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyD8gzRPSV18b--gAsyifjtIMAPsOn5JyDc',
+    appId: '1:525737552936:web:65d7462abe74f6a05ed91d',
+    messagingSenderId: '525737552936',
+    projectId: 'tutorial-flutter-620bb',
+    authDomain: 'tutorial-flutter-620bb.firebaseapp.com',
+    storageBucket: 'tutorial-flutter-620bb.appspot.com',
+    measurementId: 'G-DC9XZH3PR7',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB4hdvSo5scr_A5Na-yO0PEfLZUCH74Qhc',
     appId: '1:525737552936:android:eb7f518d1196bf5d5ed91d',
     messagingSenderId: '525737552936',
     projectId: 'tutorial-flutter-620bb',
     storageBucket: 'tutorial-flutter-620bb.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyD2s5gGIo8IGJAZHTYVSkK3KdruBvyqYnk',
+    appId: '1:525737552936:ios:a97600bda123c3285ed91d',
+    messagingSenderId: '525737552936',
+    projectId: 'tutorial-flutter-620bb',
+    storageBucket: 'tutorial-flutter-620bb.appspot.com',
+    iosClientId: '525737552936-tk5uov2tnuf2u3cfud1ga9hm4ghsjiak.apps.googleusercontent.com',
+    iosBundleId: 'com.kimi.aqwiseStripePayment',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyD2s5gGIo8IGJAZHTYVSkK3KdruBvyqYnk',
+    appId: '1:525737552936:ios:a97600bda123c3285ed91d',
+    messagingSenderId: '525737552936',
+    projectId: 'tutorial-flutter-620bb',
+    storageBucket: 'tutorial-flutter-620bb.appspot.com',
+    iosClientId: '525737552936-tk5uov2tnuf2u3cfud1ga9hm4ghsjiak.apps.googleusercontent.com',
+    iosBundleId: 'com.kimi.aqwiseStripePayment',
   );
 }
