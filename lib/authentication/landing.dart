@@ -1,5 +1,8 @@
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:aqwise_stripe_payment/authentication/auth.provider.dart';
+import 'package:aqwise_stripe_payment/authentication/home.dart';
+import 'package:aqwise_stripe_payment/authentication/login.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -11,6 +14,11 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    var user = Provider.of<AuthProvider>(context).user;
+    if (user == null) {
+      return const LoginPage();
+    } else {
+      return const HomePage();
+    }
   }
 }

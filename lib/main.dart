@@ -1,3 +1,4 @@
+import 'package:aqwise_stripe_payment/authentication/auth.provider.dart';
 import 'package:aqwise_stripe_payment/authentication/landing.dart';
 import 'package:aqwise_stripe_payment/edit.module/aya.number.provider.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.provider.dart';
@@ -25,10 +26,10 @@ import 'loop/loop.screen.dart';
 Future<void> main() async {
   //initiliaze firebase
   WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  
+
   if (!kIsWeb) {
     Stripe.publishableKey = publishkey;
     await Stripe.instance.applySettings();
@@ -46,6 +47,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        //auth provider
+        ChangeNotifierProvider<AuthProvider>(create: (context)=>AuthProvider()),
+        
         ChangeNotifierProvider<FavouriteProvider>(
             create: (context) => FavouriteProvider()),
         ChangeNotifierProvider<PaymentProvider>(
