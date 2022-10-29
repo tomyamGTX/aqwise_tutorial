@@ -1,3 +1,4 @@
+import 'package:aqwise_stripe_payment/authentication/landing.dart';
 import 'package:aqwise_stripe_payment/edit.module/aya.number.provider.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.provider.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.screen.dart';
@@ -22,15 +23,18 @@ import 'firebase_options.dart';
 import 'loop/loop.screen.dart';
 
 Future<void> main() async {
+  //initiliaze firebase
   WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  
   if (!kIsWeb) {
     Stripe.publishableKey = publishkey;
     await Stripe.instance.applySettings();
   }
   await GetStorage.init();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
   runApp(const MyApp());
 }
 
@@ -54,7 +58,8 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
             primaryColor: kPrimaryColor,
             canvasColor: kSecondaryColor),
-        home: const MyHomePage(title: 'AQ Wise Tutorial'),
+        //SET HOME TO LANDING PAGE
+        home: const LandingPage(),
       ),
     );
   }
