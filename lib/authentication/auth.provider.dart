@@ -22,8 +22,14 @@ class AuthProvider extends ChangeNotifier {
         .signInWithEmailAndPassword(email: email, password: password);
   }
 
-  Future<void> register(String email, String password) async {
+  Future<void> register(
+    String name,
+    String email,
+    String password,
+  ) async {
     await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((value) =>
+            {FirebaseAuth.instance.currentUser!.updateDisplayName(name)});
   }
 }
