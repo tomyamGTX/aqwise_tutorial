@@ -50,7 +50,7 @@ class WebViewPaymentState extends State<WebViewPayment> {
               Text(widget.status ? 'ToyyibPay Receipt' : 'ToyyibPay Payment'),
           centerTitle: true,
         ),
-        body: bill.paid && !widget.status
+        body: bill.paid.first && !widget.status
             ? Center(
                 child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

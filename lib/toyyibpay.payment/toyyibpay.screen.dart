@@ -58,14 +58,15 @@ class _ToyyibPayScreenState extends State<ToyyibPayScreen> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   Provider.of<ToyyibPayPaymentProvider>(context,
-                                                      listen: false)
-                                                  .billCode ==
-                                              null ||
+                                                  listen: false)
+                                              .billCode
+                                              .isEmpty ||
                                           !Provider.of<
                                                       ToyyibPayPaymentProvider>(
                                                   context,
                                                   listen: false)
                                               .paid
+                                              .first
                                       ? Flexible(
                                           child: Padding(
                                             padding: const EdgeInsets.only(
@@ -96,29 +97,31 @@ class _ToyyibPayScreenState extends State<ToyyibPayScreen> {
                                               'You already bought this product'),
                                         ),
                                   Provider.of<ToyyibPayPaymentProvider>(context,
-                                                      listen: false)
-                                                  .billCode ==
-                                              null ||
+                                                  listen: false)
+                                              .billCode
+                                              .isEmpty ||
                                           !Provider.of<
                                                       ToyyibPayPaymentProvider>(
                                                   context,
                                                   listen: false)
                                               .paid
-                                      ? SizedBox(width: 20)
+                                              .first
+                                      ? const SizedBox(width: 20)
                                       : Spacer(),
                                   ElevatedButton(
                                       onPressed: _payFunc,
                                       child: Text(
                                           Provider.of<ToyyibPayPaymentProvider>(
-                                                              context,
-                                                              listen: false)
-                                                          .billCode ==
-                                                      null ||
+                                                          context,
+                                                          listen: false)
+                                                      .billCode
+                                                      .isEmpty ||
                                                   !Provider.of<
                                                               ToyyibPayPaymentProvider>(
                                                           context,
                                                           listen: false)
                                                       .paid
+                                                      .first
                                               ? 'Pay Now'
                                               : 'View Receipt'))
                                 ],
@@ -137,8 +140,8 @@ class _ToyyibPayScreenState extends State<ToyyibPayScreen> {
     if (_formKey.currentState!.validate()) {
       //for new payment. premium user can get code from firestore
       if (Provider.of<ToyyibPayPaymentProvider>(context, listen: false)
-              .billCode ==
-          null) {
+          .billCode
+          .isEmpty) {
         await Provider.of<ToyyibPayPaymentProvider>(context, listen: false)
             .createBill(context,
                 billName: billName,
@@ -148,12 +151,12 @@ class _ToyyibPayScreenState extends State<ToyyibPayScreen> {
       }
       if (!mounted) return;
       //set false for new user
-      var status =
-          Provider.of<ToyyibPayPaymentProvider>(context, listen: false).paid
-              ? true
-              : false;
+      var status = Provider.of<ToyyibPayPaymentProvider>(context, listen: false)
+          .paid
+          .first;
       var code = Provider.of<ToyyibPayPaymentProvider>(context, listen: false)
-          .billCode;
+          .billCode
+          .first;
       Navigator.pop(context);
       Navigator.push(
           context,

@@ -10,13 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ToyyibPayPaymentProvider extends ChangeNotifier {
-  String? billCode;
   ToyyibPayPaymentProvider() {
     // init();
+    getBillCodeFromDb();
   }
+  List<String?> billCode = [];
+  List<bool> paid = [false];
 
-  bool paid = false;
-  List<Bill> allBill = <Bill>[];
   var userSecretkey =
       isLive ? secretkeyToyyibPayAQWise : secretkeyToyyibTesting;
 
@@ -105,7 +105,7 @@ class ToyyibPayPaymentProvider extends ChangeNotifier {
       final responseData = json.decode(responsed.body);
 
       if (response.statusCode == 200) {
-        billCode = responseData[0]['BillCode'];
+        billCode.add(responseData[0]['BillCode']);
         notifyListeners();
       } else {
         if (kDebugMode) {
@@ -166,12 +166,27 @@ class ToyyibPayPaymentProvider extends ChangeNotifier {
   }
 
   void successPayment() {
-    paid = true;
+    paid.clear();
+    paid.add(true);
     notifyListeners();
   }
 
   void failPayment() {
-    paid = false;
+    paid.clear();
+    paid.add(false);
+    notifyListeners();
+  }
+
+  void getBillCodeFromDb() {
+    //func here and assign to bill code. Bill code in String datatype
+    billCode = [];
+    notifyListeners();
+    getAccStatus();
+  }
+
+  void getAccStatus() {
+    //func here and assign to paid. Set true if user is premium
+    paid = [false];
     notifyListeners();
   }
 }
