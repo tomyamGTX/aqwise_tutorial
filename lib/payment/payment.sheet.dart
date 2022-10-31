@@ -89,7 +89,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
           iconTheme: const IconThemeData(color: Colors.black),
         ),
         body: Center(
-            child: Container(
+            child: SizedBox(
           width: screenWidth * 1,
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -112,7 +112,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
                     fontSize: 18,
                     fontWeight: FontWeight.w700),
               ),
-              Container(
+              SizedBox(
                 width: screenWidth * 1,
                 height: screenHeight * 0.15,
                 child: Row(
@@ -160,7 +160,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 width: screenWidth * 1,
                 height: screenHeight * 0.15,
                 child: Row(
@@ -168,7 +168,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
                       child: Icon(
                         Icons.subscriptions_rounded,
@@ -178,7 +178,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Padding(
                           padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
                           child: Text(
@@ -191,7 +191,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                          padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
                           child: Text(
                             'Get access over 50 premium\neducational contents!',
                             textAlign: TextAlign.justify,
@@ -208,7 +208,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 width: screenWidth * 1,
                 height: screenHeight * 0.15,
                 child: Row(
@@ -216,7 +216,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
                       child: Icon(
                         Icons.support_agent_rounded,
@@ -226,7 +226,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: const [
                         Padding(
                           padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
                           child: Text(
@@ -239,7 +239,7 @@ class _PaymentSheetState extends State<PaymentSheet> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 5, 20, 10),
+                          padding: EdgeInsets.fromLTRB(20, 5, 20, 10),
                           child: Text(
                             'Exclusive support from our team\nfor premium user!',
                             textAlign: TextAlign.justify,
@@ -258,13 +258,14 @@ class _PaymentSheetState extends State<PaymentSheet> {
               ),
               const SizedBox(height: 20),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    backgroundColor: Color(0xff2196f3),
+                    backgroundColor: const Color(0xff2196f3),
                   ),
                   onPressed: () => initPayment(),
                   child: Row(

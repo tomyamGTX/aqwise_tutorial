@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -20,7 +21,6 @@ class _LoginState extends State<Login> {
   var newPass = TextEditingController();
   @override
   void initState() {
-    // TODO: implement initState
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user != null) {
         setState(() {
@@ -38,92 +38,95 @@ class _LoginState extends State<Login> {
       appBar: AppBar(),
       body: Center(
         child: login
-            ? Container(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      const Text('Home Page'),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(FirebaseAuth.instance.currentUser!.email!),
+            ? Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    const Text('Home Page'),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(FirebaseAuth.instance.currentUser!.email!),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                          FirebaseAuth.instance.currentUser!.displayName ??
+                              'No Name'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: TextFormField(
+                        controller: displayName,
+                        decoration: InputDecoration(
+                            hintText: FirebaseAuth
+                                    .instance.currentUser!.displayName ??
+                                'Name'),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                            FirebaseAuth.instance.currentUser!.displayName ??
-                                'No Name'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: TextFormField(
+                        obscureText: true,
+                        controller: currentPass,
+                        decoration:
+                            const InputDecoration(hintText: 'Current Password'),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: TextFormField(
-                          controller: displayName,
-                          decoration: InputDecoration(
-                              hintText: FirebaseAuth
-                                      .instance.currentUser!.displayName ??
-                                  'Name'),
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: TextFormField(
+                        obscureText: true,
+                        controller: newPass,
+                        decoration:
+                            const InputDecoration(hintText: 'New Password'),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: TextFormField(
-                          obscureText: true,
-                          controller: currentPass,
-                          decoration:
-                              InputDecoration(hintText: 'Current Password'),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: TextFormField(
-                          obscureText: true,
-                          controller: newPass,
-                          decoration: InputDecoration(hintText: 'New Password'),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              if (displayName.value.text.isNotEmpty) {
-                                try {
-                                  FirebaseAuth.instance.currentUser!
-                                      .updateDisplayName(displayName.text);
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => const Login()));
-                                } catch (e) {
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            if (displayName.value.text.isNotEmpty) {
+                              try {
+                                FirebaseAuth.instance.currentUser!
+                                    .updateDisplayName(displayName.text);
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const Login()));
+                              } catch (e) {
+                                if (kDebugMode) {
                                   print(e);
                                 }
                               }
-                              if (currentPass.value.text.isNotEmpty &&
-                                  newPass.value.text.isNotEmpty) {
-                                await FirebaseAuth.instance
-                                    .signInWithEmailAndPassword(
-                                        email: FirebaseAuth
-                                            .instance.currentUser!.email!,
-                                        password: currentPass.text);
-                                FirebaseAuth.instance.currentUser!
-                                    .updatePassword(newPass.text);
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Update Success')));
-                              }
-                            },
-                            child: const Text('UPDATE')),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              await FirebaseAuth.instance.signOut();
-                              setState(() {});
-                              login = false;
-                            },
-                            child: const Text('Sign out')),
-                      )
-                    ],
-                  ),
+                            }
+                            if (currentPass.value.text.isNotEmpty &&
+                                newPass.value.text.isNotEmpty) {
+                              await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                      email: FirebaseAuth
+                                          .instance.currentUser!.email!,
+                                      password: currentPass.text);
+                              await FirebaseAuth.instance.currentUser!
+                                  .updatePassword(newPass.text);
+                              if (!mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('Update Success')));
+                            }
+                          },
+                          child: const Text('UPDATE')),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            await FirebaseAuth.instance.signOut();
+                            setState(() {});
+                            login = false;
+                          },
+                          child: const Text('Sign out')),
+                    )
+                  ],
                 ),
               )
             : Padding(
@@ -153,7 +156,9 @@ class _LoginState extends State<Login> {
                                       email: email.text,
                                       password: password.text);
                               final user = userCredential.user;
-                              print(user?.uid);
+                              if (kDebugMode) {
+                                print(user?.uid);
+                              }
                               setState(() {});
                               login = true;
                             } catch (e) {

@@ -12,7 +12,6 @@ class _LoopScreenState extends State<LoopScreen> {
   List tafsir = [];
   @override
   void initState() {
-    // TODO: implement initState
     getTafsir();
     getInfo();
     super.initState();
@@ -44,6 +43,7 @@ class _LoopScreenState extends State<LoopScreen> {
   }
 
   void getInfo() {
+    // ignore: unused_local_variable
     for (var element in sura) {}
   }
 }

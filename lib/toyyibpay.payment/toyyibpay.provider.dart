@@ -4,18 +4,19 @@ import 'package:aqwise_stripe_payment/authentication/auth.provider.dart';
 import 'package:aqwise_stripe_payment/toyyibpay.payment/bill.model.dart';
 import 'package:aqwise_stripe_payment/toyyibpay.payment/bill.transaction.model.dart';
 import 'package:aqwise_stripe_payment/toyyibpay.payment/category.model.dart';
+import 'package:aqwise_stripe_payment/toyyibpay.payment/toyyibpay.constant.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class SandBoxPaymentProvider extends ChangeNotifier {
-  SandBoxPaymentProvider() {
+class ToyyibPayPaymentProvider extends ChangeNotifier {
+  ToyyibPayPaymentProvider() {
     // init();
   }
 
   bool paid = false;
   List<Bill> allBill = <Bill>[];
-  var userSecretkey = '0tr6p5m2-j7ds-8gr2-5unc-48lw3c941z6s';
+  var userSecretkey = secretkeyToyyibPay;
   String? categoryCode;
   var createCategoryUrl =
       Uri.parse('https://dev.toyyibpay.com/index.php/api/createCategory');
@@ -52,7 +53,9 @@ class SandBoxPaymentProvider extends ChangeNotifier {
       categoryCode = data.categoryCode;
       notifyListeners();
     } else {
-      print("ERROR");
+      if (kDebugMode) {
+        print("ERROR");
+      }
     }
   }
 
@@ -118,17 +121,27 @@ class SandBoxPaymentProvider extends ChangeNotifier {
       for (var item in responseData) {
         var data = BillTransaction.fromJson(item);
         if (data.billpaymentStatus == '1') {
-          print('Successful transaction');
+          if (kDebugMode) {
+            print('Successful transaction');
+          }
         } else if (data.billpaymentStatus == '2') {
-          print('Pending transaction');
+          if (kDebugMode) {
+            print('Pending transaction');
+          }
         } else if (data.billpaymentStatus == '3') {
-          print('Unsuccessful transaction');
+          if (kDebugMode) {
+            print('Unsuccessful transaction');
+          }
         } else if (data.billpaymentStatus == '4') {
-          print('Pending');
+          if (kDebugMode) {
+            print('Pending');
+          }
         }
       }
     } else {
-      print("ERROR");
+      if (kDebugMode) {
+        print("ERROR");
+      }
     }
   }
 

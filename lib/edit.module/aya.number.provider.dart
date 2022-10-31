@@ -1,5 +1,5 @@
 import 'package:aqwise_stripe_payment/edit.module/word.detail.model.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 class AyaProvider extends ChangeNotifier {
   AyaProvider() {
@@ -73,7 +73,9 @@ class AyaProvider extends ChangeNotifier {
   }
 
   void removeList(WordDetail data) {
-    print('data deleted. Hot Restart to load back data');
+    if (kDebugMode) {
+      print('data deleted. Hot Restart to load back data');
+    }
     wordDetailList.remove(data);
     notifyListeners();
   }

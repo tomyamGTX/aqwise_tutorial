@@ -53,15 +53,12 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     loadMusic();
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     FlameAudio.bgm.stop();
     super.dispose();
   }
@@ -108,7 +105,7 @@ class _QuizScreenState extends State<QuizScreen> with TickerProviderStateMixin {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Quiz Example'),
+          title: const Text('Quiz Example'),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

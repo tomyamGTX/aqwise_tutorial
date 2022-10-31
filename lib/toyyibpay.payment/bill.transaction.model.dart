@@ -54,23 +54,23 @@ class BillTransaction {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['billName'] = this.billName;
-    data['billDescription'] = this.billDescription;
-    data['billTo'] = this.billTo;
-    data['billEmail'] = this.billEmail;
-    data['billPhone'] = this.billPhone;
-    data['billStatus'] = this.billStatus;
-    data['billpaymentStatus'] = this.billpaymentStatus;
-    data['billpaymentChannel'] = this.billpaymentChannel;
-    data['billpaymentAmount'] = this.billpaymentAmount;
-    data['billpaymentInvoiceNo'] = this.billpaymentInvoiceNo;
-    data['billSplitPayment'] = this.billSplitPayment;
-    data['billSplitPaymentArgs'] = this.billSplitPaymentArgs;
-    data['billpaymentSettlement'] = this.billpaymentSettlement;
-    data['billpaymentSettlementDate'] = this.billpaymentSettlementDate;
-    data['billPaymentDate'] = this.billPaymentDate;
-    data['billExternalReferenceNo'] = this.billExternalReferenceNo;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['billName'] = billName;
+    data['billDescription'] = billDescription;
+    data['billTo'] = billTo;
+    data['billEmail'] = billEmail;
+    data['billPhone'] = billPhone;
+    data['billStatus'] = billStatus;
+    data['billpaymentStatus'] = billpaymentStatus;
+    data['billpaymentChannel'] = billpaymentChannel;
+    data['billpaymentAmount'] = billpaymentAmount;
+    data['billpaymentInvoiceNo'] = billpaymentInvoiceNo;
+    data['billSplitPayment'] = billSplitPayment;
+    data['billSplitPaymentArgs'] = billSplitPaymentArgs;
+    data['billpaymentSettlement'] = billpaymentSettlement;
+    data['billpaymentSettlementDate'] = billpaymentSettlementDate;
+    data['billPaymentDate'] = billPaymentDate;
+    data['billExternalReferenceNo'] = billExternalReferenceNo;
     return data;
   }
 }

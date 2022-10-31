@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,7 +12,7 @@ class APIScreen extends StatefulWidget {
 }
 
 class _APIScreenState extends State<APIScreen> {
-  var dataMain;
+  dynamic dataMain;
   Future<void> getPsts() async {
     var url = Uri.parse(
         'https://stage.tsbdev.co/api/v1/content?clientContentId=Client-Story-Id-1&clientId=5f92a62013332e0f667794dc');
@@ -19,9 +20,11 @@ class _APIScreenState extends State<APIScreen> {
     if (response.statusCode == 200) {
       setState(() {});
       dataMain = jsonDecode(response.body);
-      print("dataMain");
-      print(dataMain);
-      print("dataMain");
+      if (kDebugMode) {
+        print("dataMain");
+        print(dataMain);
+        print("dataMain");
+      }
     } else {
       throw Exception('Failed to load album');
     }

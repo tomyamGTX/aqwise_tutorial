@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PaymentProvider extends ChangeNotifier {
-  var cid;
-  var pid;
+  dynamic cid;
+  dynamic pid;
   String? receipt;
   String? status;
   String role = 'FREE';

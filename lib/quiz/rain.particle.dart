@@ -17,10 +17,11 @@ class RainParticleBehaviour extends RandomParticleBehaviour {
   @override
   void initPosition(Particle p) {
     p.cx = random.nextDouble() * size!.width;
-    if (p.cy == 0.0)
+    if (p.cy == 0.0) {
       p.cy = random.nextDouble() * size!.height;
-    else
+    } else {
       p.cy = random.nextDouble() * size!.width * 0.2;
+    }
   }
 
   @override
@@ -46,7 +47,7 @@ class RainParticleBehaviour extends RandomParticleBehaviour {
           : null,
       child: ConstrainedBox(
         // necessary to force gesture detector to cover screen
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
             minHeight: double.infinity, minWidth: double.infinity),
         child: super.builder(context, constraints, child),
       ),
@@ -56,7 +57,7 @@ class RainParticleBehaviour extends RandomParticleBehaviour {
   void _updateParticles(BuildContext context, Offset offsetGlobal) {
     RenderBox renderBox = context.findRenderObject() as RenderBox;
     var offset = renderBox.globalToLocal(offsetGlobal);
-    particles!.forEach((particle) {
+    for (var particle in particles!) {
       var delta = (Offset(particle.cx, particle.cy) - offset);
       if (delta.distanceSquared < 70 * 70) {
         var speed = particle.speed;
@@ -67,6 +68,6 @@ class RainParticleBehaviour extends RandomParticleBehaviour {
         particle.dx = delta.dx / mag * speed;
         particle.dy = delta.dy / mag * speed;
       }
-    });
+    }
   }
 }

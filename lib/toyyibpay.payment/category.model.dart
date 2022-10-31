@@ -10,9 +10,9 @@ class CreateCategoryResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['CategoryCode'] = this.categoryCode;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['CategoryCode'] = categoryCode;
     return data;
   }
 }

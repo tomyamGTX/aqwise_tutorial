@@ -40,6 +40,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
             cardHolderName, '+6$phone', email, cardHolderName);
         setState(() {});
         custId = customer['id'];
+        if (!mounted) return;
         Provider.of<PaymentProvider>(context, listen: false).setCid(custId);
       } else {
         customer = await StripeService.getCustomer(custId);
@@ -52,6 +53,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
           cvc: cvvCode);
       setState(() {});
       var paymentMethodID = paymentMethod['id'];
+      if (!mounted) return;
       var id = Provider.of<PaymentProvider>(context, listen: false).pid;
       var cid = Provider.of<PaymentProvider>(context, listen: false).cid;
       if (Provider.of<PaymentProvider>(context, listen: false).pid == null) {
@@ -60,6 +62,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
         setState(() {});
         id = paymentIntent!['id'];
+        if (!mounted) return;
         Provider.of<PaymentProvider>(context, listen: false).setPid(id);
       } else {
         setState(() {});
@@ -68,11 +71,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
       await showDialog(
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text(
+              title: const Text(
                 'Buy Premium Product',
               ),
               content: ListTile(
-                  title: Text('Name : ' + customer!['name']),
+                  title: Text(customer!['name'] + 'Name : '),
                   subtitle: Text(
                       'Amount : RM ${paymentIntent!['amount'].toString().substring(0, 2)}')),
               actions: [
@@ -83,12 +86,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     paymentConfirm = await StripeService.confirmPayment(
                         paymentIntent!['id'], paymentMethodID);
                     if (paymentConfirm['error'] != null) {
+                      if (!mounted) return;
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text(
                               'Payment Fail. ${paymentConfirm['error']['message']}')));
                       Navigator.pop(context);
                     } else {
                       if (paymentConfirm['status'] == 'succeeded') {
+                        if (!mounted) return;
                         Provider.of<PaymentProvider>(context, listen: false)
                             .updateData(
                                 paymentConfirm['charges']['data']
@@ -105,13 +110,14 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 Text('Payment ${paymentConfirm['status']}')));
                         Navigator.pop(context);
                       } else {
+                        if (!mounted) return;
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(paymentConfirm['status'])));
                         Navigator.pop(context);
                       }
                     }
                   },
-                  child: Text('Confirm Payment'),
+                  child: const Text('Confirm Payment'),
                 )
               ],
             );
@@ -192,6 +198,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               validator: (e) {
                                 if (e!.isEmpty) {
                                   return 'Phone number cannot be null';
+                                } else {
+                                  return null;
                                 }
                               },
                               controller: _phone,
@@ -210,6 +218,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               validator: (e) {
                                 if (e!.isEmpty) {
                                   return 'Email cannot be null';
+                                } else {
+                                  return null;
                                 }
                               },
                               controller: _email,
@@ -223,7 +233,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
-                                primary: const Color(0xff1b447b)),
+                                backgroundColor: const Color(0xff1b447b)),
                             child: Container(
                               margin: const EdgeInsets.all(8.0),
                               child: const Text(
@@ -247,9 +257,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                     cardHolderName,
                                     cvvCode,
                                     _email.text);
-                                print('valid');
+                                if (kDebugMode) {
+                                  print('valid');
+                                }
                               } else {
-                                print('inValid');
+                                if (kDebugMode) {
+                                  print('inValid');
+                                }
                               }
                             },
                           )
@@ -276,7 +290,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    primary: Colors.orange),
+                                    backgroundColor: Colors.orange),
                                 onPressed: () async {
                                   if (!kIsWeb) {
                                     Navigator.pushReplacement(
