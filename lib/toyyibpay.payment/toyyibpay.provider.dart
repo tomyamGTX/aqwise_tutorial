@@ -10,20 +10,28 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ToyyibPayPaymentProvider extends ChangeNotifier {
+  String? billCode;
   ToyyibPayPaymentProvider() {
     // init();
   }
 
   bool paid = false;
   List<Bill> allBill = <Bill>[];
-  var userSecretkey = secretkeyToyyibPay;
-  String? categoryCode;
-  var createCategoryUrl =
-      Uri.parse('https://dev.toyyibpay.com/index.php/api/createCategory');
-  var createBillUrl =
-      Uri.parse('https://dev.toyyibpay.com/index.php/api/createBill');
-  var getBillTransaction =
-      Uri.parse('https://dev.toyyibpay.com/index.php/api/getBillTransactions');
+  var userSecretkey =
+      isLive ? secretkeyToyyibPayAQWise : secretkeyToyyibTesting;
+
+  //replace with category code based on app
+  String? categoryCode = categoryCodeAQWiseTutorial;
+
+  var createCategoryUrl = Uri.parse(isLive
+      ? 'https://toyyibpay.com/index.php/api/createCategory'
+      : 'https://dev.toyyibpay.com/index.php/api/createCategory');
+  var createBillUrl = Uri.parse(isLive
+      ? 'https://toyyibpay.com/index.php/api/createBill'
+      : 'https://dev.toyyibpay.com/index.php/api/createBill');
+  var getBillTransaction = Uri.parse(isLive
+      ? 'https://toyyibpay.com/index.php/api/getBillTransactions'
+      : 'https://dev.toyyibpay.com/index.php/api/getBillTransactions');
 
   void init() async {
     //for multipartrequest
@@ -59,50 +67,54 @@ class ToyyibPayPaymentProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> createBill(
-    BuildContext context, {
-    required String billName,
-    required String billDesc,
-    required double price,
-    required int expired,
-  }) async {
+  Future<void> createBill(BuildContext context,
+      {required String billName,
+      required String billDesc,
+      required double price,
+      required String phone}) async {
+    notifyListeners();
     var request = http.MultipartRequest('POST', createBillUrl);
     request.fields['userSecretKey'] = userSecretkey;
     request.fields['categoryCode'] = categoryCode!;
     request.fields['billName'] = billName;
     request.fields['billDescription'] = billDesc;
-    request.fields['billPriceSetting'] = '0';
+    request.fields['billPriceSetting'] = '1';
     request.fields['billPayorInfo'] = '1';
     request.fields['billAmount'] = '${price * 100}';
     request.fields['billReturnUrl'] = '';
     request.fields['billCallbackUrl'] = '';
     request.fields['billExternalReferenceNo'] = 'AFR341DFI';
-    request.fields['billTo'] = AuthProvider().user!.displayName!;
+    request.fields['billTo'] =
+        AuthProvider().user!.displayName ?? 'User${AuthProvider().user!.uid}';
     request.fields['billEmail'] = AuthProvider().user!.email!;
-    request.fields['billPhone'] = AuthProvider().user!.phoneNumber!;
+    request.fields['billPhone'] = phone;
     request.fields['billSplitPayment'] = '0';
     request.fields['billSplitPaymentArgs'] = '';
-    request.fields['billPaymentChannel'] = '0';
+    request.fields['billPaymentChannel'] = '2';
     request.fields['billContentEmail'] =
         'Thank you for purchasing our product!';
     request.fields['billChargeToCustomer'] = '1';
-    request.fields['billExpiryDays'] = '$expired';
-    request.fields['billExpiryDate'] = DateTime(DateTime.now().year,
-            DateTime.now().month, DateTime.now().day + expired)
-        .toString();
-    var response = await request.send();
+    // request.fields['billExpiryDays'] = '$expired';
+    // request.fields['billExpiryDate'] = DateTime(DateTime.now().year,
+    //         DateTime.now().month, DateTime.now().day + expired)
+    //     .toString();
+    try {
+      var response = await request.send();
 
-    var responsed = await http.Response.fromStream(response);
-    final responseData = json.decode(responsed.body);
+      var responsed = await http.Response.fromStream(response);
+      final responseData = json.decode(responsed.body);
 
-    if (response.statusCode == 200) {
-      if (kDebugMode) {
-        print(responseData);
+      if (response.statusCode == 200) {
+        billCode = responseData[0]['BillCode'];
+        notifyListeners();
+      } else {
+        if (kDebugMode) {
+          print("ERROR");
+        }
       }
-      notifyListeners();
-    } else {
+    } catch (e) {
       if (kDebugMode) {
-        print("ERROR");
+        print(e);
       }
     }
   }
@@ -110,52 +122,56 @@ class ToyyibPayPaymentProvider extends ChangeNotifier {
   Future<void> getBillTransactions(
       BuildContext context, String billCode) async {
     var request = http.MultipartRequest('POST', getBillTransaction);
-
     request.fields['billCode'] = billCode;
+    try {
+      var response = await request.send();
 
-    var response = await request.send();
+      var responsed = await http.Response.fromStream(response);
+      final responseData = json.decode(responsed.body);
 
-    var responsed = await http.Response.fromStream(response);
-    final responseData = json.decode(responsed.body);
-    if (response.statusCode == 200) {
-      for (var item in responseData) {
-        var data = BillTransaction.fromJson(item);
-        if (data.billpaymentStatus == '1') {
-          if (kDebugMode) {
-            print('Successful transaction');
-          }
-        } else if (data.billpaymentStatus == '2') {
-          if (kDebugMode) {
-            print('Pending transaction');
-          }
-        } else if (data.billpaymentStatus == '3') {
-          if (kDebugMode) {
-            print('Unsuccessful transaction');
-          }
-        } else if (data.billpaymentStatus == '4') {
-          if (kDebugMode) {
-            print('Pending');
+      if (response.statusCode == 200) {
+        for (var item in responseData) {
+          var data = BillTransaction.fromJson(item);
+          if (data.billpaymentStatus == '1') {
+            successPayment();
+            if (kDebugMode) {
+              print('Successful transaction');
+            }
+          } else if (data.billpaymentStatus == '2') {
+            if (kDebugMode) {
+              print('Pending transaction');
+            }
+          } else if (data.billpaymentStatus == '3') {
+            failPayment();
+            if (kDebugMode) {
+              print('Unsuccessful transaction');
+            }
+          } else if (data.billpaymentStatus == '4') {
+            if (kDebugMode) {
+              print('Pending');
+            }
           }
         }
+      } else {
+        if (kDebugMode) {
+          print("ERROR");
+        }
       }
-    } else {
+      notifyListeners();
+    } catch (e) {
       if (kDebugMode) {
-        print("ERROR");
+        print(e);
       }
     }
   }
 
-  void getCategory() {}
-
-  void updateBool() {
-    paid = !paid;
+  void successPayment() {
+    paid = true;
     notifyListeners();
   }
 
-  void setBool(data) {
-    if (data) {
-      paid = false;
-      notifyListeners();
-    }
+  void failPayment() {
+    paid = false;
+    notifyListeners();
   }
 }
