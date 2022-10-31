@@ -18,7 +18,9 @@ class _LandingPageState extends State<LandingPage> {
     if (user == null) {
       return const LoginPage();
     } else {
-      return const HomePage();
+      return const MyHomePage(
+        title: 'AQ WISE TUTORIAL',
+      );
     }
   }
 }
