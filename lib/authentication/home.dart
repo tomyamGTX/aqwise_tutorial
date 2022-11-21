@@ -4,6 +4,7 @@ import 'package:aqwise_stripe_payment/edit.module/edit.module.dart';
 import 'package:aqwise_stripe_payment/email/email.js.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.screen.dart';
 import 'package:aqwise_stripe_payment/loop/loop.screen.dart';
+import 'package:aqwise_stripe_payment/notifications/firebase.messaging.dart';
 import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
 import 'package:aqwise_stripe_payment/payment/payment.screen.dart';
 import 'package:aqwise_stripe_payment/payment/payment.sheet.dart';
@@ -11,6 +12,7 @@ import 'package:aqwise_stripe_payment/toyyibpay.payment/toyyibpay.screen.dart';
 import 'package:aqwise_stripe_payment/quiz/quiz.screen.dart';
 import 'package:aqwise_stripe_payment/url_handler/url.screen.dart';
 import 'package:aqwise_stripe_payment/widgets/constant.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -172,6 +174,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: Text(
                     'Quiz Sound',
+                    style: buttonStyle,
+                  )),
+              ElevatedButton(
+                  onPressed: () async {
+                    final fcmToken =
+                        await FirebaseMessaging.instance.getToken();
+                    await FirebaseNotification.sendMessage(fcmToken);
+                  },
+                  child: Text(
+                    'Send Notification',
                     style: buttonStyle,
                   )),
             ],
