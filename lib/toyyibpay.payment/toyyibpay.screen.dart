@@ -1,6 +1,5 @@
 import 'package:aqwise_stripe_payment/toyyibpay.payment/toyyibpay.provider.dart';
 import 'package:aqwise_stripe_payment/toyyibpay.payment/webview.payment.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -107,7 +106,7 @@ class _ToyyibPayScreenState extends State<ToyyibPayScreen> {
                                               .paid
                                               .first
                                       ? const SizedBox(width: 20)
-                                      : Spacer(),
+                                      : const Spacer(),
                                   ElevatedButton(
                                       onPressed: _payFunc,
                                       child: Text(
