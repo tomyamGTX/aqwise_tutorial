@@ -2,8 +2,10 @@ import 'package:aqwise_stripe_payment/authentication/auth.provider.dart';
 import 'package:aqwise_stripe_payment/authentication/landing.dart';
 import 'package:aqwise_stripe_payment/edit.module/aya.number.provider.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.provider.dart';
+import 'package:aqwise_stripe_payment/juzuk/juz.provider.dart';
 import 'package:aqwise_stripe_payment/notifications/firebase.messaging.dart';
 import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
+import 'package:aqwise_stripe_payment/theme/theme.provider.dart';
 import 'package:aqwise_stripe_payment/toyyibpay.payment/toyyibpay.provider.dart';
 import 'package:aqwise_stripe_payment/widgets/constant.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -109,6 +111,9 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider<ToyyibPayPaymentProvider>(
             create: (context) => ToyyibPayPaymentProvider()),
         ChangeNotifierProvider<AyaProvider>(create: (context) => AyaProvider()),
+        ChangeNotifierProvider<JuzProvider>(create: (context) => JuzProvider()),
+        ChangeNotifierProvider<ThemeProvider>(
+            create: (context) => ThemeProvider()),
       ],
       child: MaterialApp(
         navigatorKey: MyApp.navigatorKey,

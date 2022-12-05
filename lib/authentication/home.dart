@@ -3,6 +3,7 @@ import 'package:aqwise_stripe_payment/auth/login.dart';
 import 'package:aqwise_stripe_payment/edit.module/edit.module.dart';
 import 'package:aqwise_stripe_payment/email/email.js.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.screen.dart';
+import 'package:aqwise_stripe_payment/juzuk/juz.display.dart';
 import 'package:aqwise_stripe_payment/loop/loop.screen.dart';
 import 'package:aqwise_stripe_payment/notifications/firebase.messaging.dart';
 import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
@@ -184,6 +185,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: Text(
                     'Send Notification',
+                    style: buttonStyle,
+                  )),
+              ElevatedButton(
+                  onPressed: () async {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => JuzDisplay()));
+                  },
+                  child: Text(
+                    'Juzuk',
                     style: buttonStyle,
                   )),
             ],
