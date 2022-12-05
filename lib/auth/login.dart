@@ -23,9 +23,11 @@ class _LoginState extends State<Login> {
   void initState() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user != null) {
-        setState(() {
-          login = true;
-        });
+        if (mounted) {
+          setState(() {
+            login = true;
+          });
+        }
       }
     });
     super.initState();
@@ -87,8 +89,9 @@ class _LoginState extends State<Login> {
                           onPressed: () async {
                             if (displayName.value.text.isNotEmpty) {
                               try {
-                                FirebaseAuth.instance.currentUser!
+                                await FirebaseAuth.instance.currentUser!
                                     .updateDisplayName(displayName.text);
+                                if (!mounted) return;
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
