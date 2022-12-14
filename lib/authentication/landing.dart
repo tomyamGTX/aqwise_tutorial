@@ -1,6 +1,7 @@
 import 'package:aqwise_stripe_payment/authentication/auth.provider.dart';
 import 'package:aqwise_stripe_payment/authentication/home.dart';
 import 'package:aqwise_stripe_payment/authentication/login.dart';
+import 'package:aqwise_stripe_payment/init.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,9 +19,7 @@ class _LandingPageState extends State<LandingPage> {
     if (user == null) {
       return const LoginPage();
     } else {
-      return const MyHomePage(
-        title: 'AQ WISE TUTORIAL',
-      );
+      return InitScreen();
     }
   }
 }

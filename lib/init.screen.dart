@@ -1,3 +1,5 @@
+import 'package:aqwise_stripe_payment/authentication/home.dart';
+import 'package:aqwise_stripe_payment/widgets/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_arc_text/flutter_arc_text.dart';
 
@@ -12,6 +14,7 @@ class InitScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var lebar = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: kPrimaryColor,
       body: Center(
         child: Container(
           decoration: const BoxDecoration(
@@ -68,7 +71,13 @@ class InitScreen extends StatelessWidget {
                             side: const BorderSide(color: Colors.white),
                             backgroundColor: Colors.transparent,
                             shape: const StadiumBorder()),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MyHomePage(
+                                      title: 'AQ WISE TUTORIAL')));
+                        },
                         child: Text("Mulakan",
                             style: GoogleFonts.poppins(
                               fontSize: 27,
@@ -77,7 +86,13 @@ class InitScreen extends StatelessWidget {
                     CircleAvatar(
                         backgroundColor: Colors.white,
                         child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const MyHomePage(
+                                          title: 'AQ WISE TUTORIAL')));
+                            },
                             icon: const Icon(
                               Icons.arrow_forward,
                               color: Colors.black,

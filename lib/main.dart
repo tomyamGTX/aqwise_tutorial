@@ -15,6 +15,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'authentication/home.dart';
 import 'firebase_options.dart';
@@ -139,6 +140,7 @@ class _MyAppState extends State<MyApp> {
         },
         theme: ThemeData(
             useMaterial3: true,
+            textTheme: GoogleFonts.poppinsTextTheme(),
             primaryColor: kPrimaryColor,
             canvasColor: kSecondaryColor),
         //SET HOME TO LANDING PAGE
