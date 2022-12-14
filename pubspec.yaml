@@ -65,6 +65,7 @@ dependencies:
 
   #arc_text
   flutter_arc_text: ^0.5.0
+  google_fonts:
 
 dev_dependencies:
   flutter_test:
@@ -95,6 +96,7 @@ flutter:
     - assets/images/water_droplet.png
     - assets/audio/
     - assets/images/toyyibpay.png
+    - assets/Malaysian_History.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,30 +1,90 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_arc_text/flutter_arc_text.dart';
 
-class CurveDisplay extends StatefulWidget {
-  const CurveDisplay({Key? key}) : super(key: key);
+import 'package:google_fonts/google_fonts.dart';
 
-  @override
-  State<CurveDisplay> createState() => _CurveDisplayState();
-}
-
-class _CurveDisplayState extends State<CurveDisplay> {
-  //install plugin
-  // flutter_arc_text: ^0.5.0
-
+class CurveDisplay extends StatelessWidget {
+  CurveDisplay({Key? key}) : super(key: key);
+  String title = "Selamat Datang Ke Buku Teks Digital Sejarah Tingkatan 3";
   String subtitle = "Nilai, Patriotisme, Iktibar, Jom Belajar!";
+
   @override
   Widget build(BuildContext context) {
+    var lebar = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Center(
-        child: ArcText(
-            radius: 210,
-            text: subtitle,
-            textStyle: const TextStyle(fontSize: 18, color: Colors.black),
-            startAngle: 2.37,
-            startAngleAlignment: StartAngleAlignment.end,
-            placement: Placement.outside,
-            direction: Direction.counterClockwise),
+        child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage("assets/Malaysian_History.png"))),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Spacer(),
+              SizedBox(
+                  width: lebar * 0.75,
+                  child: Stack(
+                    children: [
+                      Text(
+                        title,
+                        style: GoogleFonts.poppins(
+                            fontSize: 48, fontWeight: FontWeight.w700),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: 700,
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Center(
+                            child: ArcText(
+                                radius: 210,
+                                text: subtitle,
+                                textStyle: const TextStyle(
+                                    fontSize: 18, color: Colors.black),
+                                startAngle: 2.37,
+                                startAngleAlignment: StartAngleAlignment.end,
+                                placement: Placement.outside,
+                                direction: Direction.counterClockwise),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+
+              // SizedBox(height: 60,),
+
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            fixedSize: Size(lebar * 0.7, 50),
+                            side: BorderSide(color: Colors.white),
+                            backgroundColor: Colors.transparent,
+                            shape: StadiumBorder()),
+                        onPressed: () {},
+                        child: Text("Mulakan",
+                            style: GoogleFonts.poppins(
+                              fontSize: 27,
+                              color: Colors.white,
+                            ))),
+                    CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.arrow_forward,
+                              color: Colors.black,
+                            )))
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
