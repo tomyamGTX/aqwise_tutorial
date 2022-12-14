@@ -1,5 +1,6 @@
 import 'package:aqwise_stripe_payment/api/api.screen.dart';
 import 'package:aqwise_stripe_payment/auth/login.dart';
+import 'package:aqwise_stripe_payment/curve.text/curve.display.dart';
 import 'package:aqwise_stripe_payment/edit.module/edit.module.dart';
 import 'package:aqwise_stripe_payment/email/email.js.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.screen.dart';
@@ -209,7 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SurahDisplay()));
+                            builder: (context) => CurveDisplay()));
                   },
                   child: Text(
                     'Curve text',

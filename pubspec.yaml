@@ -63,6 +63,9 @@ dependencies:
   #juzuk
   quran: ^1.0.4
 
+  #arc_text
+  flutter_arc_text: ^0.5.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
