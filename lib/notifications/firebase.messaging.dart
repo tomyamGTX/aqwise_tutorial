@@ -12,24 +12,37 @@ import '../firebase_options.dart';
 
 class FirebaseNotification {
   static Future<void> initFirebaseMessaging() async {
-    ///cm initiliaze
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-
-    FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+    ///cm web
+    if (kIsWeb) {
+      final fcmToken =
+          await FirebaseMessaging.instance.getToken(vapidKey: vappidKey);
       if (kDebugMode) {
-        print('success $fcmToken');
+        print(fcmToken);
       }
-      // Note: This callback is fired at each app startup and whenever a new
-      // token is generated.
-    }).onError((err) {
-      if (kDebugMode) {
-        print(err.toString());
-      }
-      // Error getting token.
-    });
+      FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+        // Note: This callback is fired at each app startup and whenever a new
+        // token is generated.
+      }).onError((err) {
+        // Error getting token.
+      });
+    } else if (Platform.isAndroid) {
+      ///cm initiliaze
+      final fcmToken = await FirebaseMessaging.instance.getToken();
 
-    ///cm ios
-    if (Platform.isIOS) {
+      FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
+        if (kDebugMode) {
+          print('success $fcmToken');
+        }
+        // Note: This callback is fired at each app startup and whenever a new
+        // token is generated.
+      }).onError((err) {
+        if (kDebugMode) {
+          print(err.toString());
+        }
+        // Error getting token.
+      });
+    } else if (Platform.isIOS) {
+      ///cm ios
       FirebaseMessaging messaging = FirebaseMessaging.instance;
 
       NotificationSettings settings = await messaging.requestPermission(
@@ -47,20 +60,6 @@ class FirebaseNotification {
       }
     }
 
-    ///cm web
-    if (kIsWeb) {
-      final fcmToken =
-          await FirebaseMessaging.instance.getToken(vapidKey: vappidKey);
-      if (kDebugMode) {
-        print(fcmToken);
-      }
-      FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
-        // Note: This callback is fired at each app startup and whenever a new
-        // token is generated.
-      }).onError((err) {
-        // Error getting token.
-      });
-    }
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       if (kDebugMode) {
         print('Got a message whilst in the foreground!');
