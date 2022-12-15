@@ -35,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return Scaffold(
         backgroundColor: kPrimaryColor,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: Text(
             widget.title,
             style: buttonStyle,
@@ -187,8 +188,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   )),
               ElevatedButton(
                   onPressed: () async {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => JuzDisplay()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const JuzDisplay()));
                   },
                   child: Text(
                     'Juzuk',
@@ -199,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SurahDisplay()));
+                            builder: (context) => const SurahDisplay()));
                   },
                   child: Text(
                     'Word Translation Module',
