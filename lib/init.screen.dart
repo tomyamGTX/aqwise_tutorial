@@ -1,5 +1,6 @@
 import 'package:aqwise_stripe_payment/authentication/home.dart';
 import 'package:aqwise_stripe_payment/widgets/constant.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_arc_text/flutter_arc_text.dart';
 
@@ -38,28 +39,35 @@ class InitScreen extends StatelessWidget {
                             fontWeight: FontWeight.w700),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(
-                        height: 600,
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Center(
-                            child: ArcText(
-                                radius: 210,
-                                text: subtitle,
-                                textStyle: const TextStyle(
-                                    fontSize: 18, color: Colors.white),
-                                startAngle: 2.27,
-                                startAngleAlignment: StartAngleAlignment.end,
-                                placement: Placement.outside,
-                                direction: Direction.counterClockwise),
+                      if (!kIsWeb)
+                        SizedBox(
+                          height: 600,
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Center(
+                              child: ArcText(
+                                  radius: 210,
+                                  text: subtitle,
+                                  textStyle: const TextStyle(
+                                      fontSize: 18, color: Colors.white),
+                                  startAngle: 2.27,
+                                  startAngleAlignment: StartAngleAlignment.end,
+                                  placement: Placement.outside,
+                                  direction: Direction.counterClockwise),
+                            ),
                           ),
                         ),
-                      ),
                     ],
                   )),
-
-              // SizedBox(height: 60,),
-
+              if (kIsWeb)
+                Center(
+                  child: Text(
+                    subtitle,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                ),
+              if (kIsWeb) const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Row(
@@ -76,7 +84,7 @@ class InitScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const MyHomePage(
-                                      title: 'AQ WISE TUTORIAL')));
+                                      title: 'AQ WISE - Tutorial App')));
                         },
                         child: Text("Mulakan",
                             style: GoogleFonts.poppins(
@@ -91,7 +99,7 @@ class InitScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => const MyHomePage(
-                                          title: 'AQ WISE TUTORIAL')));
+                                          title: 'AQ WISE - Tutorial App')));
                             },
                             icon: const Icon(
                               Icons.arrow_forward,

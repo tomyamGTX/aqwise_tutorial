@@ -119,7 +119,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: MaterialApp(
         navigatorKey: MyApp.navigatorKey,
-        title: 'Flutter Demo', initialRoute: '/',
+        title: 'AQ WISE - Tutorial App', initialRoute: '/',
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case '/':
