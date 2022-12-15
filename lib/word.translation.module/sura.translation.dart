@@ -31,7 +31,7 @@ class _SuraTranslationState extends State<SuraTranslation> {
               subtitle: Text(translation[index]['language_id'].toString()),
               title: Text('(${translation[index]['text']})'),
               trailing: IconButton(
-                icon: Icon(Icons.edit),
+                icon: const Icon(Icons.edit),
                 onPressed: () {},
               ),
             ),
