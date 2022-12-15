@@ -30,6 +30,10 @@ class _SuraTranslationState extends State<SuraTranslation> {
               tileColor: Colors.amber,
               subtitle: Text(translation[index]['language_id'].toString()),
               title: Text('(${translation[index]['text']})'),
+              trailing: IconButton(
+                icon: Icon(Icons.edit),
+                onPressed: () {},
+              ),
             ),
           ),
         ));
