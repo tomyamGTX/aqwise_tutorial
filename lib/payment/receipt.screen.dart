@@ -11,14 +11,22 @@ class ReceiptScreen extends StatefulWidget {
 }
 
 class _ReceiptScreenState extends State<ReceiptScreen> {
+  late WebViewController _controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    _controller.loadRequest(Uri.parse(widget.url));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Receipt detail'),
       ),
-      body: WebView(
-        initialUrl: widget.url,
+      body: WebViewWidget(
+        controller: _controller,
       ),
     );
   }

@@ -10,16 +10,22 @@ class WebViewScreen extends StatefulWidget {
 }
 
 class _WebViewScreenState extends State<WebViewScreen> {
+  late WebViewController _controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    _controller.loadRequest(Uri.parse(widget.url));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('WEBVIEW'),
-        ),
-        body: WebView(
-          initialUrl: widget.url,
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Webview'),
+      ),
+      body: WebViewWidget(
+        controller: _controller,
       ),
     );
   }

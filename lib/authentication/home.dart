@@ -11,6 +11,7 @@ import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
 import 'package:aqwise_stripe_payment/payment/payment.screen.dart';
 import 'package:aqwise_stripe_payment/payment/payment.sheet.dart';
 import 'package:aqwise_stripe_payment/quiz/quiz.screen.dart';
+import 'package:aqwise_stripe_payment/share_app/index.dart';
 import 'package:aqwise_stripe_payment/toyyibpay.payment/toyyibpay.screen.dart';
 import 'package:aqwise_stripe_payment/url_handler/url.screen.dart';
 import 'package:aqwise_stripe_payment/widgets/constant.dart';
@@ -217,6 +218,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: Text(
                     'Curve text',
+                    style: buttonStyle,
+                  )),
+              ElevatedButton(
+                  onPressed: () async {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ShareScreen()));
+                  },
+                  child: Text(
+                    'Share App',
                     style: buttonStyle,
                   )),
             ],

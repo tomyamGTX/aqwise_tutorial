@@ -22,17 +22,21 @@ class WebViewPayment extends StatefulWidget {
 class WebViewPaymentState extends State<WebViewPayment> {
   late dynamic timer;
   bool receipt = false;
+
+  var _controller = WebViewController();
   @override
   void initState() {
     super.initState();
+    var initialUrl = isLive
+        ? 'https://toyyibpay.com/${widget.billcode}'
+        : 'https://dev.toyyibpay.com/${widget.billcode}';
+    _controller.loadRequest(Uri.parse(initialUrl));
     timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       if (!widget.status) {
         Provider.of<ToyyibPayPaymentProvider>(context, listen: false)
             .getBillTransactions(context, widget.billcode);
       }
     });
-
-    if (Platform.isAndroid) WebView.platform = AndroidWebView();
   }
 
   @override
@@ -72,11 +76,8 @@ class WebViewPaymentState extends State<WebViewPayment> {
                   ),
                 ],
               ))
-            : WebView(
-                javascriptMode: JavascriptMode.unrestricted,
-                initialUrl: isLive
-                    ? 'https://toyyibpay.com/${widget.billcode}'
-                    : 'https://dev.toyyibpay.com/${widget.billcode}',
+            : WebViewWidget(
+                controller: _controller,
               ),
       );
     });

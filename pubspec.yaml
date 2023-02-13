@@ -67,6 +67,13 @@ dependencies:
   flutter_arc_text: ^0.5.0
   google_fonts:
 
+  #in-app-purchase
+  purchases_flutter: ^4.5.2
+
+  #share
+  share_plus: ^6.3.1
+  path_provider: ^2.0.12
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
