@@ -1,9 +1,6 @@
-import 'dart:io';
 
 import 'package:aqwise_stripe_payment/share_app/share_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:share_plus/share_plus.dart';
 
 class ShareScreen extends StatefulWidget {
