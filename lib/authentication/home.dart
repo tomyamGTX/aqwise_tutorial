@@ -243,7 +243,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => CurveDisplay()));
+                                        builder: (context) => const CurveDisplay()));
                               },
                               child: Text(
                                 'Curve text',

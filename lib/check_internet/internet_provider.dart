@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 class InternetProvider extends ChangeNotifier {
@@ -14,7 +14,9 @@ class InternetProvider extends ChangeNotifier {
     bool result = await InternetConnectionChecker().hasConnection;
     ///update internet check output to boolean
     isDeviceConnected = result;
-    print('listening internet connection...');
+    if (kDebugMode) {
+      print('listening internet connection...');
+    }
     notifyListeners();
   }
 }

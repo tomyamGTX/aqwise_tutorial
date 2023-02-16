@@ -1,11 +1,5 @@
 import 'package:aqwise_stripe_payment/check_internet/internet_provider.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/async.dart';
-import 'package:flutter/src/widgets/basic.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 import 'no_internet.dart';
@@ -36,7 +30,7 @@ class _CheckNetworkScreenState extends State<CheckNetworkScreen> {
           ///on true display content, on false display no internet UI
           return conn.isDeviceConnected
               ? const Text('Internet access available')
-              : NoInternetWidget(color: Colors.black,);
+              : const NoInternetWidget(color: Colors.black,);
         }),
       ),
     );
