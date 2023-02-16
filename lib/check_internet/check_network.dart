@@ -36,7 +36,7 @@ class _CheckNetworkScreenState extends State<CheckNetworkScreen> {
           ///on true display content, on false display no internet UI
           return conn.isDeviceConnected
               ? const Text('Internet access available')
-              : const NoInternetWidget();
+              : NoInternetWidget(color: Colors.black,);
         }),
       ),
     );
