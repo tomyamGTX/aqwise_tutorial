@@ -17,9 +17,9 @@ class JuzProvider extends ChangeNotifier {
       List<String> data = [];
       for (int i = 0; i <= difference; i++) {
         var list = getSurahAndVersesFromJuz(int.parse(juz.id!));
-        list.entries.forEach((element) {
+        for (var element in list.entries) {
           data.add('${element.value[0]} - ${element.value[1]}');
-        });
+        }
       }
 
       return data;

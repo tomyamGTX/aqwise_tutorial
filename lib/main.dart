@@ -1,5 +1,6 @@
 import 'package:aqwise_stripe_payment/authentication/auth.provider.dart';
 import 'package:aqwise_stripe_payment/authentication/landing.dart';
+import 'package:aqwise_stripe_payment/check_internet/internet_provider.dart';
 import 'package:aqwise_stripe_payment/edit.module/aya.number.provider.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.provider.dart';
 import 'package:aqwise_stripe_payment/juzuk/juz.provider.dart';
@@ -46,7 +47,7 @@ Future<void> main() async {
             channelKey: 'basic_channel',
             channelName: 'Basic notifications',
             channelDescription: 'Notification channel for basic tests',
-            defaultColor: Color(0xFF9D50DD),
+            defaultColor: const Color(0xFF9D50DD),
             ledColor: Colors.white)
       ],
       // Channel groups are only visual and are not required
@@ -116,6 +117,8 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider<JuzProvider>(create: (context) => JuzProvider()),
         ChangeNotifierProvider<ThemeProvider>(
             create: (context) => ThemeProvider()),
+        ChangeNotifierProvider<InternetProvider>(
+            create: (context) => InternetProvider()),
       ],
       child: MaterialApp(
         navigatorKey: MyApp.navigatorKey,

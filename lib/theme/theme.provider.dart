@@ -44,7 +44,6 @@ class QuranThemes {
     //text color  white black
     indicatorColor: Colors.orange,
     primarySwatch: Colors.orange,
-    bottomAppBarColor: Colors.orange,
     dividerColor: const Color(0xFFD2D6DA),
     // stroke color = white orange
     cardColor: Colors.orange,
@@ -63,7 +62,7 @@ class QuranThemes {
       primary: Color(0xFF67748E),
     ),
     textSelectionTheme:
-        const TextSelectionThemeData(selectionColor: Colors.grey),
+        const TextSelectionThemeData(selectionColor: Colors.grey), bottomAppBarTheme: const BottomAppBarTheme(color: Colors.orange),
   );
   static final lightTheme = ThemeData(
     primaryColorDark: Colors.grey,
@@ -79,10 +78,9 @@ class QuranThemes {
     iconTheme: const IconThemeData(color: Color(0xFFE86F00)),
     indicatorColor: Colors.orange,
     primarySwatch: Colors.orange,
-    bottomAppBarColor: Colors.orange,
     dividerColor: const Color(0xFFE86F00),
     cardColor: Colors.orange,
     textSelectionTheme:
-        const TextSelectionThemeData(selectionColor: Colors.black),
+        const TextSelectionThemeData(selectionColor: Colors.black), bottomAppBarTheme: const BottomAppBarTheme(color: Colors.orange),
   );
 }

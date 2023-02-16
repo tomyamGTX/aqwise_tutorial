@@ -13,7 +13,6 @@ class _SuraTranslationState extends State<SuraTranslation> {
 
   @override
   void initState() {
-    // TODO: implement initState
     getAlltranslationForWordID();
     super.initState();
   }

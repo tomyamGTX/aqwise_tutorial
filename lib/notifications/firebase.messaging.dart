@@ -137,15 +137,23 @@ class FirebaseNotification {
       });
 
       if (response.statusCode == 200) {
-        print(response.statusCode);
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
 
-        print('message sent');
+        if (kDebugMode) {
+          print('message sent');
+        }
       } else {
-        print(response.statusCode);
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
         throw ('Error sending message. ');
       }
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }

@@ -4,9 +4,9 @@ import 'package:flutter_arc_text/flutter_arc_text.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CurveDisplay extends StatelessWidget {
-  CurveDisplay({Key? key}) : super(key: key);
-  String title = "Selamat Datang Ke Buku Teks Digital Sejarah Tingkatan 3";
-  String subtitle = "Nilai, Patriotisme, Iktibar, Jom Belajar!";
+  const CurveDisplay({Key? key}) : super(key: key);
+ final  String title = "Selamat Datang Ke Buku Teks Digital Sejarah Tingkatan 3";
+  final String subtitle = "Nilai, Patriotisme, Iktibar, Jom Belajar!";
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +14,14 @@ class CurveDisplay extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   fit: BoxFit.cover,
                   image: AssetImage("assets/Malaysian_History.png"))),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Spacer(),
+              const Spacer(),
               SizedBox(
                   width: lebar * 0.75,
                   child: Stack(
@@ -62,9 +62,9 @@ class CurveDisplay extends StatelessWidget {
                     OutlinedButton(
                         style: OutlinedButton.styleFrom(
                             fixedSize: Size(lebar * 0.7, 50),
-                            side: BorderSide(color: Colors.white),
+                            side: const BorderSide(color: Colors.white),
                             backgroundColor: Colors.transparent,
-                            shape: StadiumBorder()),
+                            shape: const StadiumBorder()),
                         onPressed: () {},
                         child: Text("Mulakan",
                             style: GoogleFonts.poppins(
@@ -75,7 +75,7 @@ class CurveDisplay extends StatelessWidget {
                         backgroundColor: Colors.white,
                         child: IconButton(
                             onPressed: () {},
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.arrow_forward,
                               color: Colors.black,
                             )))

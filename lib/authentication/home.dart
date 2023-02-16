@@ -20,6 +20,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../check_internet/check_network.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
@@ -54,184 +56,201 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
         body: Center(
-          child: Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: <Widget>[
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ToyyibPayScreen()));
-                  },
-                  child: Text(
-                    'ToyyibPay Payment',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const PaymentScreen()));
-                  },
-                  child: Text(
-                    'Stripe Custom Payment',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const PaymentSheet()));
-                  },
-                  child: Text(
-                    'Stripe Payment Sheet',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const EmailScreen()));
-                  },
-                  child: Text(
-                    'Email Sender',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const URLScreen()));
-                  },
-                  child: Text(
-                    'URL Handler',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const FavScreen()));
-                  },
-                  child: Text(
-                    'Favourite List',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoopScreen()));
-                  },
-                  child: Text(
-                    'Loop test',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => const Login()));
-                  },
-                  child: Text(
-                    'Login',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const EditModule()));
-                  },
-                  child: Text(
-                    'Edit Module',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const APIScreen()));
-                  },
-                  child: Text(
-                    'Get data from API',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const QuizScreen()));
-                  },
-                  child: Text(
-                    'Quiz Sound',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () async {
-                    final fcmToken =
-                        await FirebaseMessaging.instance.getToken();
-                    await FirebaseNotification.sendMessage(fcmToken);
-                  },
-                  child: Text(
-                    'Send Notification',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const JuzDisplay()));
-                  },
-                  child: Text(
-                    'Juzuk',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SurahDisplay()));
-                  },
-                  child: Text(
-                    'Word Translation Module',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CurveDisplay()));
-                  },
-                  child: Text(
-                    'Curve text',
-                    style: buttonStyle,
-                  )),
-              ElevatedButton(
-                  onPressed: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ShareScreen()));
-                  },
-                  child: Text(
-                    'Share App',
-                    style: buttonStyle,
-                  )),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: <Widget>[
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ToyyibPayScreen()));
+                    },
+                    child: Text(
+                      'ToyyibPay Payment',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PaymentScreen()));
+                    },
+                    child: Text(
+                      'Stripe Custom Payment',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PaymentSheet()));
+                    },
+                    child: Text(
+                      'Stripe Payment Sheet',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const EmailScreen()));
+                    },
+                    child: Text(
+                      'Email Sender',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const URLScreen()));
+                    },
+                    child: Text(
+                      'URL Handler',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FavScreen()));
+                    },
+                    child: Text(
+                      'Favourite List',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoopScreen()));
+                    },
+                    child: Text(
+                      'Loop test',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Login()));
+                    },
+                    child: Text(
+                      'Login',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const EditModule()));
+                    },
+                    child: Text(
+                      'Edit Module',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const APIScreen()));
+                    },
+                    child: Text(
+                      'Get data from API',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const QuizScreen()));
+                    },
+                    child: Text(
+                      'Quiz Sound',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () async {
+                      final fcmToken =
+                          await FirebaseMessaging.instance.getToken();
+                      await FirebaseNotification.sendMessage(fcmToken);
+                    },
+                    child: Text(
+                      'Send Notification',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const JuzDisplay()));
+                    },
+                    child: Text(
+                      'Juzuk',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SurahDisplay()));
+                    },
+                    child: Text(
+                      'Word Translation Module',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CurveDisplay()));
+                    },
+                    child: Text(
+                      'Curve text',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ShareScreen()));
+                    },
+                    child: Text(
+                      'Share App',
+                      style: buttonStyle,
+                    )),
+                ElevatedButton(
+                    onPressed: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const CheckNetworkScreen()));
+                    },
+                    child: Text(
+                      'Check Network Status',
+                      style: buttonStyle,
+                    )),
+              ],
+            ),
           ),
         ),
         // This trailing comma makes auto-formatting nicer for build methods.

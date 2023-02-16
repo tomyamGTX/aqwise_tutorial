@@ -14,7 +14,6 @@ class _ReceiptScreenState extends State<ReceiptScreen> {
   late WebViewController _controller;
   @override
   void initState() {
-    // TODO: implement initState
     _controller.loadRequest(Uri.parse(widget.url));
     super.initState();
   }

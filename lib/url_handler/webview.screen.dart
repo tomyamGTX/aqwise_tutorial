@@ -13,7 +13,6 @@ class _WebViewScreenState extends State<WebViewScreen> {
   late WebViewController _controller;
   @override
   void initState() {
-    // TODO: implement initState
     _controller.loadRequest(Uri.parse(widget.url));
     super.initState();
   }

@@ -1,5 +1,4 @@
 import 'package:aqwise_stripe_payment/word.translation.module/surah.page.dart';
-import 'package:aqwise_stripe_payment/word.translation.module/surah.word.id.dart';
 import 'package:flutter/material.dart';
 import 'package:quran/quran.dart';
 
