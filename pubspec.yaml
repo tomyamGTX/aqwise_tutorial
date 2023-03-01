@@ -78,6 +78,12 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   connectivity_plus: ^3.0.3
 
+  #map
+  google_maps_flutter: ^2.2.4
+
+  #firebase
+  cloud_firestore: ^4.4.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

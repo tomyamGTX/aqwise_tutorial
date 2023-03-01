@@ -1,6 +1,7 @@
 import 'package:aqwise_stripe_payment/api/api.screen.dart';
 import 'package:aqwise_stripe_payment/auth/login.dart';
 import 'package:aqwise_stripe_payment/curve.text/curve.display.dart';
+import 'package:aqwise_stripe_payment/drawPath/map.dart';
 import 'package:aqwise_stripe_payment/edit.module/edit.module.dart';
 import 'package:aqwise_stripe_payment/email/email.js.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.screen.dart';
@@ -11,18 +12,20 @@ import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
 import 'package:aqwise_stripe_payment/payment/payment.screen.dart';
 import 'package:aqwise_stripe_payment/payment/payment.sheet.dart';
 import 'package:aqwise_stripe_payment/quiz/quiz.screen.dart';
+import 'package:aqwise_stripe_payment/readFirebase/read.dart';
 import 'package:aqwise_stripe_payment/share_app/index.dart';
 import 'package:aqwise_stripe_payment/toyyibpay.payment/toyyibpay.screen.dart';
 import 'package:aqwise_stripe_payment/url_handler/url.screen.dart';
 import 'package:aqwise_stripe_payment/widgets/constant.dart';
 import 'package:aqwise_stripe_payment/word.translation.module/sura.display.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../check_internet/check_network.dart';
-import '../check_internet/internet_provider.dart';
-import '../check_internet/no_internet.dart';
+import 'check_internet/check_network.dart';
+import 'check_internet/internet_provider.dart';
+import 'check_internet/no_internet.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -64,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
             conn.checkConnection();
 
             ///on true display content, on false display no internet UI
-            return conn.isDeviceConnected
+            return conn.isDeviceConnected || kIsWeb
                 ? Center(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
@@ -243,7 +246,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const CurveDisplay()));
+                                        builder: (context) =>
+                                            const CurveDisplay()));
                               },
                               child: Text(
                                 'Curve text',
@@ -271,6 +275,30 @@ class _MyHomePageState extends State<MyHomePage> {
                               },
                               child: Text(
                                 'Check Network Status',
+                                style: buttonStyle,
+                              )),
+                          ElevatedButton(
+                              onPressed: () async {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MapPathScreen()));
+                              },
+                              child: Text(
+                                'Draw Map Path',
+                                style: buttonStyle,
+                              )),
+                          ElevatedButton(
+                              onPressed: () async {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ReadFromFirebase()));
+                              },
+                              child: Text(
+                                'Read Data from Firebase',
                                 style: buttonStyle,
                               )),
                         ],

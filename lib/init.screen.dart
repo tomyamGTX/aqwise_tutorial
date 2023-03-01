@@ -1,4 +1,4 @@
-import 'package:aqwise_stripe_payment/authentication/home.dart';
+import 'package:aqwise_stripe_payment/home.dart';
 import 'package:aqwise_stripe_payment/widgets/constant.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +6,7 @@ import 'package:flutter_arc_text/flutter_arc_text.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
+// ignore: must_be_immutable
 class InitScreen extends StatelessWidget {
   InitScreen({Key? key}) : super(key: key);
   String title = "Selamat Datang Ke AQ Wise Tutorial Flutter";
