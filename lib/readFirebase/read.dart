@@ -18,7 +18,7 @@ class _ReadFromFirebaseState extends State<ReadFromFirebase> {
     return Scaffold(
       body: Center(
         ///use stream to fetch data
-        child: StreamBuilder<SampleModel>(
+        child: StreamBuilder<List<SampleModel>>(
             stream: getFirebaseData(),
             builder: (context, snapshot) {
               if (snapshot.connectionState.name == 'waiting') {
@@ -32,11 +32,16 @@ class _ReadFromFirebaseState extends State<ReadFromFirebase> {
                 return const Text('No data');
               } else {
                 ///display data on UI
-                return Card(
-                  margin: const EdgeInsets.all(8),
-                  child: ListTile(
-                    title: Text(snapshot.data!.name!),
-                  ),
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      margin: const EdgeInsets.all(8),
+                      child: ListTile(
+                        title: Text(snapshot.data![index].name!),
+                      ),
+                    );
+                  },
                 );
               }
             }),
@@ -44,7 +49,7 @@ class _ReadFromFirebaseState extends State<ReadFromFirebase> {
     );
   }
 
-  Stream<SampleModel>? getFirebaseData() async* {
+  Stream<List<SampleModel>>? getFirebaseData() async* {
     debugPrint('fecthing data...');
 
     ///collection name
@@ -63,6 +68,6 @@ class _ReadFromFirebaseState extends State<ReadFromFirebase> {
       debugPrint(e.toString());
     }
 
-    yield model!.first;
+    yield model!;
   }
 }
