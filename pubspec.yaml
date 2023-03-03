@@ -80,6 +80,7 @@ dependencies:
 
   #map
   google_maps_flutter: ^2.2.4
+  custom_map_markers: ^0.0.2+1
 
   #firebase
   cloud_firestore: ^4.4.3

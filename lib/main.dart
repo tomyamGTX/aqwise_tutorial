@@ -6,7 +6,6 @@ import 'package:aqwise_stripe_payment/favourite_list/favourite.provider.dart';
 import 'package:aqwise_stripe_payment/juzuk/juz.provider.dart';
 import 'package:aqwise_stripe_payment/notifications/firebase.messaging.dart';
 import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
-import 'package:aqwise_stripe_payment/readFirebase/read.dart';
 import 'package:aqwise_stripe_payment/theme/theme.provider.dart';
 import 'package:aqwise_stripe_payment/toyyibpay.payment/toyyibpay.provider.dart';
 import 'package:aqwise_stripe_payment/widgets/constant.dart';

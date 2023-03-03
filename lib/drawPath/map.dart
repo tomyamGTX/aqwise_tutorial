@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'dart:ui';
+import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'map_pin.dart';
 
 class MapPathScreen extends StatefulWidget {
   const MapPathScreen({Key? key}) : super(key: key);
@@ -15,49 +16,53 @@ class MapPathScreenState extends State<MapPathScreen> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
-
   static const CameraPosition _kLake = CameraPosition(
       bearing: 192.8334901395799,
       target: LatLng(37.43296265331129, -122.08832357078792),
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
 
-  Set<Marker> _marker = {};
+  @override
+  void initState() {
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  final locations = const [
+    LatLng(37.42796133580664, -122.085749655962),
+    LatLng(37.41796133580664, -122.085749655962),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: GoogleMap(
-      //   mapType: MapType.hybrid,
-      //   initialCameraPosition: _kGooglePlex,
-      //   markers: _marker,
-      //   onMapCreated: (GoogleMapController controller) async {
-      //     _controller.complete(controller);
-      //     setState(() {});
-      //     _marker.add(Marker(
-      //         markerId: const MarkerId('1'),
-      //         icon: await circleCanvasWithText(
-      //             size: const Size(100, 200), text: '20'),
-      //         position:
-      //             LatLng(_kLake.target.latitude, _kLake.target.longitude)));
-      //   },
-      // ),
-
-      body: CustomPaint(
-        painter: MapPin(),
-        child: const Center(
-          child: Text(
-            '01',
-            style: TextStyle(
-              fontSize: 40.0,
-              fontWeight: FontWeight.w900,
+      body: CustomGoogleMapMarkerBuilder(
+        customMarkers: [
+          MarkerData(
+              marker: Marker(
+                  markerId: const MarkerId('id-1'), position: locations[0]),
+              child: _customMarker('A', Colors.black)),
+          MarkerData(
+              marker: Marker(
+                  markerId: const MarkerId('id-2'), position: locations[1]),
+              child: _customMarker('B', Colors.red)),
+        ],
+        builder: (BuildContext context, Set<Marker>? markers) {
+          if (markers == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return GoogleMap(
+            initialCameraPosition: const CameraPosition(
+              target: LatLng(37.42796133580664, -122.085749655962),
+              zoom: 14.4746,
             ),
-          ),
-        ),
+            markers: markers,
+            onMapCreated: (GoogleMapController controller) {},
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _goToTheLake,
@@ -71,30 +76,11 @@ class MapPathScreenState extends State<MapPathScreen> {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
-}
 
-class MapPin extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    var paint = Paint()
-      ..color = Colors.teal
-      ..strokeWidth = 5
-      ..style = PaintingStyle.fill
-      ..strokeCap = StrokeCap.round;
-
-    var path1 = Path();
-    var height = 100;
-    var width = 50.0;
-    path1.moveTo(size.width / 2 - width, size.height / 2);
-    path1.lineTo(size.width / 2, size.height / 2 + height);
-    path1.lineTo(size.width / 2 + width, size.height / 2);
-
-    canvas.drawPath(path1, paint);
-    canvas.drawCircle(Offset.zero, 10, paint);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return false;
+  _customMarker(String s, Color black) {
+    return CustomPaint(
+      painter: MapPin(black, s),
+      size: MediaQuery.of(context).size / 10,
+    );
   }
 }

@@ -42,6 +42,8 @@ Future<List<NotificationPermission>> requestUserPermissions(
         channelKey: channelKey, permissions: permissionsNeeded);
   } else {
     // If you need to show a rationale to educate the user to conceived the permission, show it
+
+    // ignore: use_build_context_synchronously
     await showDialog(
         context: context,
         builder: (context) => AlertDialog(

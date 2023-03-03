@@ -193,6 +193,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  custom_map_markers:
+    dependency: "direct main"
+    description:
+      name: custom_map_markers
+      sha256: b101e87305d46adbf207c08cde2fdee575423a20888cd21184b4d606fcd2ca28
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2+1"
   dbus:
     dependency: transitive
     description:

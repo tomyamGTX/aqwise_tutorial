@@ -68,6 +68,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         setState(() {});
         paymentIntent = await StripeService.getIntent(id!);
       }
+      if (!mounted) return;
       await showDialog(
           builder: (BuildContext context) {
             return AlertDialog(

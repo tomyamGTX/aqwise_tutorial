@@ -27,7 +27,7 @@ class FirebaseNotification {
       });
     } else if (Platform.isAndroid) {
       ///cm initiliaze
-      final fcmToken = await FirebaseMessaging.instance.getToken();
+      await FirebaseMessaging.instance.getToken();
 
       FirebaseMessaging.instance.onTokenRefresh.listen((fcmToken) {
         if (kDebugMode) {
