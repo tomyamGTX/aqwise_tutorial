@@ -14,9 +14,9 @@ class InternetProvider extends ChangeNotifier {
     bool result = await InternetConnectionChecker().hasConnection;
     ///update internet check output to boolean
     isDeviceConnected = result;
-    if (kDebugMode) {
-      print('listening internet connection...');
-    }
+    // if (kDebugMode) {
+    //   print('listening internet connection...');
+    // }
     notifyListeners();
   }
 }

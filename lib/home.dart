@@ -1,6 +1,7 @@
 import 'package:aqwise_stripe_payment/api/api.screen.dart';
 import 'package:aqwise_stripe_payment/auth/login.dart';
 import 'package:aqwise_stripe_payment/curve.text/curve.display.dart';
+import 'package:aqwise_stripe_payment/delete_account/delete_account.dart';
 import 'package:aqwise_stripe_payment/drawPath/map.dart';
 import 'package:aqwise_stripe_payment/edit.module/edit.module.dart';
 import 'package:aqwise_stripe_payment/email/email.js.dart';
@@ -299,6 +300,18 @@ class _MyHomePageState extends State<MyHomePage> {
                               },
                               child: Text(
                                 'Read Data from Firebase',
+                                style: buttonStyle,
+                              )),
+                          ElevatedButton(
+                              onPressed: () async {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const DeleteAccountWidget()));
+                              },
+                              child: Text(
+                                'Delete Account',
                                 style: buttonStyle,
                               )),
                         ],
