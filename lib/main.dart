@@ -1,5 +1,4 @@
 import 'package:aqwise_stripe_payment/authentication/auth.provider.dart';
-import 'package:aqwise_stripe_payment/authentication/landing.dart';
 import 'package:aqwise_stripe_payment/check_internet/internet_provider.dart';
 import 'package:aqwise_stripe_payment/edit.module/aya.number.provider.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.provider.dart';
@@ -9,7 +8,6 @@ import 'package:aqwise_stripe_payment/payment/payment.provider.dart';
 import 'package:aqwise_stripe_payment/theme/theme.provider.dart';
 import 'package:aqwise_stripe_payment/toyyibpay.payment/toyyibpay.provider.dart';
 import 'package:aqwise_stripe_payment/widgets/constant.dart';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -18,10 +16,12 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'home.dart';
+
 import 'firebase_options.dart';
+import 'home.dart';
 import 'notifications/notification.controller.dart';
 import 'notifications/notification.page.dart';
+import 'onboarding/h_scroll.dart';
 
 Future<void> main() async {
   //initiliaze firebase
@@ -121,6 +121,8 @@ class _MyAppState extends State<MyApp> {
             create: (context) => InternetProvider()),
       ],
       child: MaterialApp(
+        scrollBehavior: MyCustomScrollBehavior(),
+        debugShowCheckedModeBanner: false,
         navigatorKey: MyApp.navigatorKey,
         title: 'AQ WISE - Tutorial App', initialRoute: '/',
         onGenerateRoute: (settings) {
@@ -147,7 +149,7 @@ class _MyAppState extends State<MyApp> {
             primaryColor: kPrimaryColor,
             canvasColor: kSecondaryColor),
         //SET HOME TO LANDING PAGE
-        home: const LandingPage(),
+        home: const MyHomePage(title: 'Tutorial AQWISE'),
       ),
     );
   }

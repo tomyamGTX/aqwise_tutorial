@@ -6,12 +6,15 @@ class InternetProvider extends ChangeNotifier {
   var isDeviceConnected = false;
 
   InternetProvider() {
-    //add function to check internet on starting app
-    checkConnection();
+    if (!kIsWeb) {
+      //add function to check internet on starting app
+      checkConnection();
+    }
   }
 
   Future<void> checkConnection() async {
     bool result = await InternetConnectionChecker().hasConnection;
+
     ///update internet check output to boolean
     isDeviceConnected = result;
     // if (kDebugMode) {

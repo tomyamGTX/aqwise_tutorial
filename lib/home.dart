@@ -3,7 +3,6 @@ import 'package:aqwise_stripe_payment/auth/login.dart';
 import 'package:aqwise_stripe_payment/curve.text/curve.display.dart';
 import 'package:aqwise_stripe_payment/delete_account/delete_account.dart';
 import 'package:aqwise_stripe_payment/drawPath/map.dart';
-import 'package:aqwise_stripe_payment/edit.module/edit.module.dart';
 import 'package:aqwise_stripe_payment/email/email.js.dart';
 import 'package:aqwise_stripe_payment/favourite_list/favourite.screen.dart';
 import 'package:aqwise_stripe_payment/juzuk/juz.display.dart';
@@ -27,6 +26,7 @@ import 'package:provider/provider.dart';
 import 'check_internet/check_network.dart';
 import 'check_internet/internet_provider.dart';
 import 'check_internet/no_internet.dart';
+import 'onboarding/onboarding_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -64,8 +64,10 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Center(
           ///need to apply to all screen that require internet connection
           child: Consumer<InternetProvider>(builder: (context, conn, _) {
-            ///checking every second
-            conn.checkConnection();
+            if (!kIsWeb) {
+              ///checking every second
+              conn.checkConnection();
+            }
 
             ///on true display content, on false display no internet UI
             return conn.isDeviceConnected || kIsWeb
@@ -171,18 +173,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                 'Login',
                                 style: buttonStyle,
                               )),
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const EditModule()));
-                              },
-                              child: Text(
-                                'Edit Module',
-                                style: buttonStyle,
-                              )),
+                          // ElevatedButton(
+                          //     onPressed: () {
+                          //       Navigator.push(
+                          //           context,
+                          //           MaterialPageRoute(
+                          //               builder: (context) =>
+                          //                   const EditModule()));
+                          //     },
+                          //     child: Text(
+                          //       'Edit Module',
+                          //       style: buttonStyle,
+                          //     )),
                           ElevatedButton(
                               onPressed: () {
                                 Navigator.push(
@@ -312,6 +314,18 @@ class _MyHomePageState extends State<MyHomePage> {
                               },
                               child: Text(
                                 'Delete Account',
+                                style: buttonStyle,
+                              )),
+                          ElevatedButton(
+                              onPressed: () async {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const OnboardingScreen()));
+                              },
+                              child: Text(
+                                'Onboarding screen',
                                 style: buttonStyle,
                               )),
                         ],
